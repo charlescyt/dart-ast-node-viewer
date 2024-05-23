@@ -1,6 +1,8 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+import 'home_page.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -71,11 +73,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Lato',
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }
