@@ -69,6 +69,7 @@ class App extends StatelessWidget {
         tones: FlexTones.jolly(Brightness.dark),
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         useMaterial3: true,
+        fontFamily: 'Lato',
       ),
       home: const Scaffold(
         body: Center(
