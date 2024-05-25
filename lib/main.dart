@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show LicenseEntryWithLineBreaks, LicenseRegistry;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 
@@ -13,5 +14,5 @@ void main() {
     yield LicenseEntryWithLineBreaks(['JetBrains Mono'], jetBrainsMonoLicense);
   });
 
-  runApp(const App());
+  runApp(const ProviderScope(child: App()));
 }
