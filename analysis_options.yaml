@@ -1,1 +1,5 @@
 include: package:choco_lints/app.yaml
+
+linter:
+  rules:
+    prefer_int_literals: false
