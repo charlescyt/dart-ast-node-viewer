@@ -6,14 +6,18 @@ import 'package:re_highlight/styles/monokai-sublime.dart';
 class CodeField extends StatefulWidget {
   const CodeField({
     super.key,
-    this.data,
+    this.content,
     this.readOnly = false,
     this.wordWrap = false,
+    this.controller,
+    this.onContentChanged,
   });
 
-  final String? data;
+  final String? content;
   final bool readOnly;
   final bool wordWrap;
+  final CodeLineEditingController? controller;
+  final ValueChanged<String>? onContentChanged;
 
   @override
   State<CodeField> createState() => _CodeFieldState();
@@ -25,15 +29,21 @@ class _CodeFieldState extends State<CodeField> {
   @override
   void initState() {
     super.initState();
-    _controller = CodeLineEditingController.fromText(widget.data);
+
+    if (widget.controller != null) {
+      _controller = widget.controller!;
+      _controller.text = widget.content ?? '';
+    } else {
+      _controller = CodeLineEditingController.fromText(widget.content);
+    }
   }
 
   @override
   void didUpdateWidget(covariant CodeField oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.data != widget.data) {
-      _controller.text = widget.data ?? '';
+    if (oldWidget.content != widget.content) {
+      _controller.text = widget.content ?? '';
     }
   }
 
@@ -54,6 +64,9 @@ class _CodeFieldState extends State<CodeField> {
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       border: Border.all(color: theme.dividerColor),
+      onChanged: (value) {
+        widget.onContentChanged?.call(_controller.text);
+      },
       style: CodeEditorStyle(
         fontSize: 14,
         fontFamily: 'JetBrainsMono',

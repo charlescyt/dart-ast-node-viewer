@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       body: Row(
         children: [
           Expanded(
-            child: CodeField(data: demoCode),
+            child: CodeField(content: demoCode),
           ),
           Expanded(
             child: Center(
