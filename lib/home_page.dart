@@ -57,22 +57,16 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       _selectedAstNode = node;
-      _setCodeFieldSelectionFromAstNode(node: node, lineInfo: lineInfo);
-    });
-  }
 
-  void _setCodeFieldSelectionFromAstNode({
-    required AstNode? node,
-    required LineInfo lineInfo,
-  }) {
-    if (node == null) {
-      _controller.selection = const CodeLineSelection.zero();
-    } else {
-      _controller.selection = getCodeLineSelectionFromAstNode(
-        node: node,
-        lineInfo: lineInfo,
-      );
-    }
+      if (node == null) {
+        _controller.selection = const CodeLineSelection.zero();
+      } else {
+        _controller.selection = getCodeLineSelectionFromAstNode(
+          node: node,
+          lineInfo: lineInfo,
+        );
+      }
+    });
   }
 
   @override
