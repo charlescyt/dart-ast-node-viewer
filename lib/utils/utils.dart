@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:re_editor/re_editor.dart';
 
@@ -41,6 +42,20 @@ CodeLineSelection getCodeLineSelectionFromAstNode({
   return getCodeLineSelectionFromOffsetAndLength(
     offset: node.offset,
     length: node.length,
+    lineInfo: lineInfo,
+  );
+}
+
+/// Get [CodeLineSelection] from [AnalysisError].
+///
+/// [LineInfo] is required to calculate the line number and column number
+CodeLineSelection getCodeLineSelectionFromAnalysisError({
+  required AnalysisError error,
+  required LineInfo lineInfo,
+}) {
+  return getCodeLineSelectionFromOffsetAndLength(
+    offset: error.offset,
+    length: error.length,
     lineInfo: lineInfo,
   );
 }
