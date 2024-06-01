@@ -190,35 +190,32 @@ class AstNodeDetailsView extends StatelessWidget {
       _ => Text(astNode.toSource()),
     };
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.dividerColor),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: LayoutBuilder(
-            builder: (context, constrains) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constrains.maxHeight),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListTile(
-                        title: Text(
-                          formatAstNodeRuntimeType(astNode),
-                          style: textTheme.titleLarge,
-                        ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: theme.dividerColor),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: LayoutBuilder(
+          builder: (context, constrains) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constrains.maxHeight),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ListTile(
+                      title: Text(
+                        formatAstNodeRuntimeType(astNode),
+                        style: textTheme.titleLarge,
                       ),
-                      content,
-                    ],
-                  ),
+                    ),
+                    content,
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -34,7 +34,7 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
     );
   }
 
-@override
+  @override
   void didUpdateWidget(covariant AstNodeTreeView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -53,39 +53,36 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(color: theme.dividerColor),
-        ),
-        child: AnimatedTreeView<TreeNode<AstNode>>(
-          treeController: _treeController,
-          padding: const EdgeInsets.all(8),
-          nodeBuilder: (context, entry) {
-            final astNode = entry.node.value;
-            return Ink(
-              color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
-              child: InkWell(
-                onTap: () {
-                  widget.onNodeChanged(astNode);
-                },
-                child: TreeIndentation(
-                  entry: entry,
-                  guide: IndentGuide.connectingLines(
-                    connectBranches: true,
-                    indent: 24,
-                    color: theme.dividerColor,
-                  ),
-                  child: Text(
-                    formatAstNodeRuntimeType(astNode),
-                    overflow: TextOverflow.ellipsis,
-                  ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: theme.dividerColor),
+      ),
+      child: AnimatedTreeView<TreeNode<AstNode>>(
+        treeController: _treeController,
+        padding: const EdgeInsets.all(8),
+        nodeBuilder: (context, entry) {
+          final astNode = entry.node.value;
+          return Ink(
+            color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
+            child: InkWell(
+              onTap: () {
+                widget.onNodeChanged(astNode);
+              },
+              child: TreeIndentation(
+                entry: entry,
+                guide: IndentGuide.connectingLines(
+                  connectBranches: true,
+                  indent: 24,
+                  color: theme.dividerColor,
+                ),
+                child: Text(
+                  formatAstNodeRuntimeType(astNode),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

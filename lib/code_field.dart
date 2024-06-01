@@ -61,7 +61,6 @@ class _CodeFieldState extends State<CodeField> {
       controller: _controller,
       readOnly: widget.readOnly,
       wordWrap: widget.wordWrap,
-      margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       border: Border.all(color: theme.dividerColor),
       onChanged: (value) {

@@ -96,46 +96,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            child: CodeField(
-              content: demoCode,
-              controller: _controller,
-              onContentChanged: _onContentChanged,
-            ),
-          ),
-          if (_parsedResult.errors.isEmpty)
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
             Expanded(
-              child: AstNodeTreeView(
-                roots: [_treeNode],
-                selected: _selectedAstNode,
-                onNodeChanged: (node) {
-                  _onAstNodeChanged(
-                    node: node,
-                    lineInfo: _parsedResult.lineInfo,
-                  );
-                },
-              ),
-            )
-          else
-            Expanded(
-              child: AnalysisErrorListView(
-                errors: _parsedResult.errors,
-                selectedError: _selectedError,
-                onErrorSelected: (error) {
-                  _onAnalysisErrorChanged(
-                    error: error,
-                    lineInfo: _parsedResult.lineInfo,
-                  );
-                },
+              child: CodeField(
+                content: demoCode,
+                controller: _controller,
+                onContentChanged: _onContentChanged,
               ),
             ),
-          if (_selectedAstNode != null)
-            Expanded(
-              child: AstNodeDetailsView(astNode: _selectedAstNode!),
-            ),
-        ],
+            const SizedBox(width: 8),
+            if (_parsedResult.errors.isEmpty)
+              Expanded(
+                child: AstNodeTreeView(
+                  roots: [_treeNode],
+                  selected: _selectedAstNode,
+                  onNodeChanged: (node) {
+                    _onAstNodeChanged(
+                      node: node,
+                      lineInfo: _parsedResult.lineInfo,
+                    );
+                  },
+                ),
+              )
+            else
+              Expanded(
+                child: AnalysisErrorListView(
+                  errors: _parsedResult.errors,
+                  selectedError: _selectedError,
+                  onErrorSelected: (error) {
+                    _onAnalysisErrorChanged(
+                      error: error,
+                      lineInfo: _parsedResult.lineInfo,
+                    );
+                  },
+                ),
+              ),
+            if (_selectedAstNode != null) ...[
+              const SizedBox(width: 8),
+              Expanded(
+                child: AstNodeDetailsView(astNode: _selectedAstNode!),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
