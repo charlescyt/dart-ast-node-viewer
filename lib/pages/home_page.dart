@@ -5,12 +5,12 @@ import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
 import 'package:re_editor/re_editor.dart';
 
-import 'code_field.dart';
-import 'models/tree_node.dart';
-import 'utils/utils.dart';
-import 'widgets/analysis_error_list_view.dart';
-import 'widgets/ast_node_details_view.dart';
-import 'widgets/ast_node_tree_view.dart';
+import '../models/tree_node.dart';
+import '../utils/utils.dart';
+import '../widgets/analysis_error_list_view.dart';
+import '../widgets/ast_node_details_view.dart';
+import '../widgets/ast_node_tree_view.dart';
+import '../widgets/code_field.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
