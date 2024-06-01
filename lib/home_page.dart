@@ -9,6 +9,7 @@ import 'code_field.dart';
 import 'models/tree_node.dart';
 import 'utils/utils.dart';
 import 'widgets/analysis_error_list_view.dart';
+import 'widgets/ast_node_details_view.dart';
 import 'widgets/ast_node_tree_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -129,6 +130,10 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
+            ),
+          if (_selectedAstNode != null)
+            Expanded(
+              child: AstNodeDetailsView(astNode: _selectedAstNode!),
             ),
         ],
       ),
