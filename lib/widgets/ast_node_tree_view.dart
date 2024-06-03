@@ -71,7 +71,7 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
               child: TreeIndentation(
                 entry: entry,
                 guide: IndentGuide.connectingLines(
-                  connectBranches: true,
+                  connectBranches: false,
                   indent: 24,
                   color: theme.dividerColor,
                 ),
