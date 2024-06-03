@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
       _content = value;
       _parsedResult = parseCode(_content);
       _treeNode = convertParseStringResultToTreeNode(_parsedResult);
+      _selectedAstNode = null;
+      _selectedError = null;
     });
   }
 
