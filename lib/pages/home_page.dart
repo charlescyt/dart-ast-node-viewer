@@ -8,6 +8,7 @@ import 'package:re_editor/re_editor.dart';
 import '../models/tree_node.dart';
 import '../utils/utils.dart';
 import '../widgets/analysis_error_list_view.dart';
+import '../widgets/app_decorated_box.dart';
 import '../widgets/ast_node_details_view.dart';
 import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
@@ -135,12 +136,19 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-            if (_selectedAstNode != null) ...[
-              const SizedBox(width: 8),
+            const SizedBox(width: 8),
+            if (_selectedAstNode case final astNode?)
               Expanded(
-                child: AstNodeDetailsView(astNode: _selectedAstNode!),
+                child: AstNodeDetailsView(astNode: astNode),
+              )
+            else
+              const Expanded(
+                child: AppDecoratedBox(
+                  child: Center(
+                    child: Text('Select an AST node'),
+                  ),
+                ),
               ),
-            ],
           ],
         ),
       ),
