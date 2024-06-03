@@ -3,68 +3,32 @@ import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/dart.dart';
 import 'package:re_highlight/styles/monokai-sublime.dart';
 
-class CodeField extends StatefulWidget {
+class CodeField extends StatelessWidget {
   const CodeField({
     super.key,
-    this.content,
     this.readOnly = false,
     this.wordWrap = false,
     this.controller,
     this.onContentChanged,
   });
 
-  final String? content;
   final bool readOnly;
   final bool wordWrap;
   final CodeLineEditingController? controller;
   final ValueChanged<String>? onContentChanged;
 
   @override
-  State<CodeField> createState() => _CodeFieldState();
-}
-
-class _CodeFieldState extends State<CodeField> {
-  late final CodeLineEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.controller != null) {
-      _controller = widget.controller!;
-      _controller.text = widget.content ?? '';
-    } else {
-      _controller = CodeLineEditingController.fromText(widget.content);
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant CodeField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.content != widget.content) {
-      _controller.text = widget.content ?? '';
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return CodeEditor(
-      controller: _controller,
-      readOnly: widget.readOnly,
-      wordWrap: widget.wordWrap,
+      controller: controller,
+      readOnly: readOnly,
+      wordWrap: wordWrap,
       padding: const EdgeInsets.all(8),
       border: Border.all(color: theme.dividerColor),
       onChanged: (value) {
-        widget.onContentChanged?.call(_controller.text);
+        onContentChanged?.call(value.codeLines.asString(TextLineBreak.lf));
       },
       style: CodeEditorStyle(
         fontSize: 14,

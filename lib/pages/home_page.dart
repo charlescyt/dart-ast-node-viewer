@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _controller = CodeLineEditingController();
+    _controller = CodeLineEditingController.fromText(_content);
     _parsedResult = parseCode(_content);
     _treeNode = convertParseStringResultToTreeNode(_parsedResult);
   }
@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: CodeField(
-                content: demoCode,
                 controller: _controller,
                 onContentChanged: _onContentChanged,
               ),
