@@ -1,6 +1,8 @@
 import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:flutter/material.dart';
 
+import 'app_decorated_box.dart';
+
 typedef AnalysisErrorCallback = void Function(AnalysisError error);
 
 class AnalysisErrorListView extends StatelessWidget {
@@ -17,25 +19,17 @@ class AnalysisErrorListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: theme.dividerColor),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: errors.length,
-          itemBuilder: (context, index) {
-            final error = errors[index];
-            return _AnalysisErrorCard(
-              error: error,
-              selected: error == selectedError,
-              onErrorSelected: onErrorSelected,
-            );
-          },
-        ),
+    return AppDecoratedBox(
+      child: ListView.builder(
+        itemCount: errors.length,
+        itemBuilder: (context, index) {
+          final error = errors[index];
+          return _AnalysisErrorCard(
+            error: error,
+            selected: error == selectedError,
+            onErrorSelected: onErrorSelected,
+          );
+        },
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_fancy_tree_view/flutter_fancy_tree_view.dart';
 
 import '../models/tree_node.dart';
 import '../utils/formatting.dart';
+import 'app_decorated_box.dart';
 
 class AstNodeTreeView extends StatefulWidget {
   const AstNodeTreeView({
@@ -53,13 +54,9 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: theme.dividerColor),
-      ),
+    return AppDecoratedBox(
       child: AnimatedTreeView<TreeNode<AstNode>>(
         treeController: _treeController,
-        padding: const EdgeInsets.all(8),
         nodeBuilder: (context, entry) {
           final astNode = entry.node.value;
           return Ink(

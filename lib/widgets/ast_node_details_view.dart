@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/formatting.dart';
+import 'app_decorated_box.dart';
 
 class AstNodeDetailsView extends StatelessWidget {
   const AstNodeDetailsView({
@@ -190,33 +191,27 @@ class AstNodeDetailsView extends StatelessWidget {
       _ => Text(astNode.toSource()),
     };
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: theme.dividerColor),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: LayoutBuilder(
-          builder: (context, constrains) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constrains.maxHeight),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ListTile(
-                      title: Text(
-                        formatAstNodeRuntimeType(astNode),
-                        style: textTheme.titleLarge,
-                      ),
+    return AppDecoratedBox(
+      child: LayoutBuilder(
+        builder: (context, constrains) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constrains.maxHeight),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ListTile(
+                    title: Text(
+                      formatAstNodeRuntimeType(astNode),
+                      style: textTheme.titleLarge,
                     ),
-                    content,
-                  ],
-                ),
+                  ),
+                  content,
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

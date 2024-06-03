@@ -3,6 +3,8 @@ import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/dart.dart';
 import 'package:re_highlight/styles/monokai-sublime.dart';
 
+import 'app_decorated_box.dart';
+
 class CodeField extends StatelessWidget {
   const CodeField({
     super.key,
@@ -19,40 +21,37 @@ class CodeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return CodeEditor(
-      controller: controller,
-      readOnly: readOnly,
-      wordWrap: wordWrap,
-      padding: const EdgeInsets.all(8),
-      border: Border.all(color: theme.dividerColor),
-      onChanged: (value) {
-        onContentChanged?.call(value.codeLines.asString(TextLineBreak.lf));
-      },
-      style: CodeEditorStyle(
-        fontSize: 14,
-        fontFamily: 'JetBrainsMono',
-        codeTheme: CodeHighlightTheme(
-          languages: {'dart': CodeHighlightThemeMode(mode: langDart)},
-          theme: monokaiSublimeTheme,
+    return AppDecoratedBox(
+      child: CodeEditor(
+        controller: controller,
+        readOnly: readOnly,
+        wordWrap: wordWrap,
+        padding: EdgeInsets.zero,
+        onChanged: (value) => onContentChanged?.call(value.codeLines.asString(TextLineBreak.lf)),
+        style: CodeEditorStyle(
+          fontSize: 14,
+          fontFamily: 'JetBrainsMono',
+          codeTheme: CodeHighlightTheme(
+            languages: {'dart': CodeHighlightThemeMode(mode: langDart)},
+            theme: monokaiSublimeTheme,
+          ),
         ),
+        indicatorBuilder: (context, editingController, chunkController, notifier) {
+          return Row(
+            children: [
+              DefaultCodeLineNumber(
+                notifier: notifier,
+                controller: editingController,
+              ),
+              DefaultCodeChunkIndicator(
+                width: 20,
+                notifier: notifier,
+                controller: chunkController,
+              ),
+            ],
+          );
+        },
       ),
-      indicatorBuilder: (context, editingController, chunkController, notifier) {
-        return Row(
-          children: [
-            DefaultCodeLineNumber(
-              notifier: notifier,
-              controller: editingController,
-            ),
-            DefaultCodeChunkIndicator(
-              width: 20,
-              notifier: notifier,
-              controller: chunkController,
-            ),
-          ],
-        );
-      },
     );
   }
 }
