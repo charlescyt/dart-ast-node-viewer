@@ -32,12 +32,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   TreeNode<AstNode>? visitAnnotation(Annotation node) {
     final name = _visitNode(node.name);
     final arguments = _visitNode(node.arguments);
+    final constructorName = _visitNode(node.constructorName);
+    final typeArguments = _visitNode(node.typeArguments);
 
     return TreeNode<AstNode>(
       node,
       children: [
         if (name != null) name,
         if (arguments != null) arguments,
+        if (constructorName != null) constructorName,
+        if (typeArguments != null) typeArguments,
       ],
     );
   }
@@ -85,7 +89,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   @override
   TreeNode<AstNode>? visitAssertStatement(AssertStatement node) {
     final condition = _visitNode(node.condition);
-    final message = _visitNode(node.message);
+    final message = _visitNode(node);
 
     return TreeNode<AstNode>(
       node,
@@ -260,6 +264,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitClassDeclaration(ClassDeclaration node) {
+    final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
     final extendsClause = _visitNode(node.extendsClause);
@@ -270,6 +275,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
         if (metadata != null) ...metadata,
         if (typeParameters != null) typeParameters,
         if (extendsClause != null) extendsClause,
@@ -302,8 +308,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitComment(Comment node) {
+    final references = _visitNodeList(node.references);
+
     return TreeNode<AstNode>(
       node,
+      children: [
+        if (references != null) ...references,
+      ],
     );
   }
 
@@ -348,12 +359,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   TreeNode<AstNode>? visitConfiguration(Configuration node) {
     final name = _visitNode(node.name);
     final value = _visitNode(node.value);
+    final uri = _visitNode(node.uri);
 
     return TreeNode<AstNode>(
       node,
       children: [
         if (name != null) name,
         if (value != null) value,
+        if (uri != null) uri,
       ],
     );
   }
@@ -372,6 +385,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitConstructorDeclaration(ConstructorDeclaration node) {
+    final comment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
     final parameters = _visitNode(node.parameters);
@@ -382,6 +396,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
+        if (comment != null) comment,
         if (metadata != null) ...metadata,
         if (returnType != null) returnType,
         if (parameters != null) parameters,
@@ -482,12 +497,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitDefaultFormalParameter(DefaultFormalParameter node) {
+    final metadata = _visitNodeList(node.metadata);
     final parameter = _visitNode(node.parameter);
+    final defaultValue = _visitNode(node.defaultValue);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (metadata != null) ...metadata,
         if (parameter != null) parameter,
+        if (defaultValue != null) defaultValue,
       ],
     );
   }
@@ -589,14 +608,20 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitExportDirective(ExportDirective node) {
+    final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
+    final configurations = _visitNodeList(node.configurations);
+    final combinators = _visitNodeList(node.combinators);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
         if (metadata != null) ...metadata,
         if (uri != null) uri,
+        if (configurations != null) ...configurations,
+        if (combinators != null) ...combinators,
       ],
     );
   }
@@ -816,6 +841,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitFunctionDeclaration(FunctionDeclaration node) {
+    final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
     final functionExpression = _visitNode(node.functionExpression);
@@ -823,6 +849,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
         if (metadata != null) ...metadata,
         if (returnType != null) returnType,
         if (functionExpression != null) functionExpression,
@@ -934,6 +961,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitGenericTypeAlias(GenericTypeAlias node) {
+    final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
     final type = _visitNode(node.type);
@@ -941,6 +969,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
         if (metadata != null) ...metadata,
         if (typeParameters != null) typeParameters,
         if (type != null) type,
@@ -951,11 +980,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   @override
   TreeNode<AstNode>? visitGuardedPattern(GuardedPattern node) {
     final pattern = _visitNode(node.pattern);
+    final whenClause = _visitNode(node.whenClause);
 
     return TreeNode<AstNode>(
       node,
       children: [
         if (pattern != null) pattern,
+        if (whenClause != null) whenClause,
       ],
     );
   }
@@ -991,6 +1022,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   @override
   TreeNode<AstNode>? visitIfStatement(IfStatement node) {
     final expression = _visitNode(node.expression);
+    final caseClause = _visitNode(node.caseClause);
     final thenStatement = _visitNode(node.thenStatement);
     final elseStatement = _visitNode(node.elseStatement);
 
@@ -998,6 +1030,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (expression != null) expression,
+        if (caseClause != null) caseClause,
         if (thenStatement != null) thenStatement,
         if (elseStatement != null) elseStatement,
       ],
@@ -1025,6 +1058,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitImportDirective(ImportDirective node) {
+    final documentationComment = _visitNode(node.documentationComment);
+    final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
     final prefix = _visitNode(node.prefix);
     final configurations = _visitNodeList(node.configurations);
@@ -1033,6 +1068,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
+        if (metadata != null) ...metadata,
         if (uri != null) uri,
         if (prefix != null) prefix,
         if (configurations != null) ...configurations,
@@ -1294,6 +1331,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   TreeNode<AstNode>? visitMethodInvocation(MethodInvocation node) {
     final target = _visitNode(node.target);
     final methodName = _visitNode(node.methodName);
+    final typeArguments = _visitNode(node.typeArguments);
     final argumentList = _visitNode(node.argumentList);
 
     return TreeNode<AstNode>(
@@ -1301,6 +1339,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       children: [
         if (target != null) target,
         if (methodName != null) methodName,
+        if (typeArguments != null) typeArguments,
         if (argumentList != null) argumentList,
       ],
     );
@@ -1756,11 +1795,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitSimpleFormalParameter(SimpleFormalParameter node) {
+    final documentationComment = _visitNode(node.documentationComment);
+    final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
+        if (metadata != null) ...metadata,
         if (type != null) type,
       ],
     );
@@ -1881,26 +1924,28 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitSwitchExpressionCase(SwitchExpressionCase node) {
-    final expression = _visitNode(node.expression);
     final guardedPattern = _visitNode(node.guardedPattern);
+    final expression = _visitNode(node.expression);
 
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
         if (guardedPattern != null) guardedPattern,
+        if (expression != null) expression,
       ],
     );
   }
 
   @override
   TreeNode<AstNode>? visitSwitchPatternCase(SwitchPatternCase node) {
+    final labels = _visitNodeList(node.labels);
     final guardedPattern = _visitNode(node.guardedPattern);
     final statements = _visitNodeList(node.statements);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (labels != null) ...labels,
         if (guardedPattern != null) guardedPattern,
         if (statements != null) ...statements,
       ],
@@ -2029,11 +2074,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitVariableDeclaration(VariableDeclaration node) {
+    final documentationComment = _visitNode(node.documentationComment);
+    final metadata = _visitNodeList(node.metadata);
     final initializer = _visitNode(node.initializer);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
+        if (metadata != null) ...metadata,
         if (initializer != null) initializer,
       ],
     );
@@ -2041,12 +2090,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
 
   @override
   TreeNode<AstNode>? visitVariableDeclarationList(VariableDeclarationList node) {
+    final documentationComment = _visitNode(node.documentationComment);
+    final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
     final variables = _visitNodeList(node.variables);
 
     return TreeNode<AstNode>(
       node,
       children: [
+        if (documentationComment != null) documentationComment,
+        if (metadata != null) ...metadata,
         if (type != null) type,
         if (variables != null) ...variables,
       ],
