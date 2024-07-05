@@ -26,7 +26,7 @@ class CodeField extends StatelessWidget {
         controller: controller,
         readOnly: readOnly,
         wordWrap: wordWrap,
-        padding: EdgeInsets.zero,
+        padding: const EdgeInsets.all(8.0),
         onChanged: (value) => onContentChanged?.call(value.codeLines.asString(TextLineBreak.lf)),
         style: CodeEditorStyle(
           fontSize: 14,

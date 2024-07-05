@@ -57,6 +57,7 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
     return AppDecoratedBox(
       child: AnimatedTreeView<TreeNode<AstNode>>(
         treeController: _treeController,
+        padding: const EdgeInsets.all(8.0),
         nodeBuilder: (context, entry) {
           final astNode = entry.node.value;
           return Ink(

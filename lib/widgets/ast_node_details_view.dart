@@ -195,6 +195,7 @@ class AstNodeDetailsView extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constrains) {
           return SingleChildScrollView(
+            padding: const EdgeInsets.all(8.0),
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constrains.maxHeight),
               child: Column(
