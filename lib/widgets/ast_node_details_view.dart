@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/formatting.dart';
+import '../utils/utils.dart';
 import 'app_decorated_box.dart';
 
 class AstNodeDetailsView extends StatelessWidget {
@@ -203,7 +203,7 @@ class AstNodeDetailsView extends StatelessWidget {
                 children: [
                   ListTile(
                     title: Text(
-                      formatAstNodeRuntimeType(astNode),
+                      getAstNodeTypeName(astNode),
                       style: textTheme.titleLarge,
                     ),
                   ),

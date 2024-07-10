@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fancy_tree_view/flutter_fancy_tree_view.dart';
 
 import '../models/tree_node.dart';
-import '../utils/formatting.dart';
+import '../utils/utils.dart';
 import 'app_decorated_box.dart';
 
 class AstNodeTreeView extends StatefulWidget {
@@ -74,7 +74,7 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
                   color: theme.dividerColor,
                 ),
                 child: Text(
-                  formatAstNodeRuntimeType(astNode),
+                  getAstNodeTypeName(astNode),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
