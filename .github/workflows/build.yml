@@ -37,7 +37,7 @@ jobs:
         run: flutter pub outdated
 
       - name: Build web
-        run: flutter build web
+        run: flutter build web --base-href /dart-ast-node-viewer/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
