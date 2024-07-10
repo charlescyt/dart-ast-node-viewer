@@ -23,7 +23,7 @@ dev_dependencies:
   choco_lints:
     git:
       ref: 1.2.0
-      url: git@github.com:charlescyt/choco_lints.git
+      url: https://github.com/charlescyt/choco_lints.git
   custom_lint: ^0.6.4
   flutter_test:
     sdk: flutter

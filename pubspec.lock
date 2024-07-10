@@ -135,7 +135,7 @@ packages:
       path: "."
       ref: "1.2.0"
       resolved-ref: cc3d987b4d26ba338cd67cacfaaf3ae8e10e2a3e
-      url: "git@github.com:charlescyt/choco_lints.git"
+      url: "https://github.com/charlescyt/choco_lints.git"
     source: git
     version: "1.2.0"
   ci:
