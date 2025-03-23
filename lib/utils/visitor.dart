@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:collection/collection.dart';
 
 import '../models/tree_node.dart';
 
@@ -13,7 +12,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   List<TreeNode<AstNode>>? _visitNodeList(NodeList<AstNode>? nodes) {
-    return nodes?.map((node) => node.accept(this)).whereNotNull().toList();
+    return nodes?.map((node) => node.accept(this)).nonNulls.toList();
   }
 
   @override
@@ -122,9 +121,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAugmentationImportDirective(AugmentationImportDirective node) {
+  TreeNode<AstNode>? visitAugmentedExpression(AugmentedExpression node) {
     return TreeNode<AstNode>(
       node,
+    );
+  }
+
+  @override
+  TreeNode<AstNode>? visitAugmentedInvocation(AugmentedInvocation node) {
+    final arguments = _visitNode(node.arguments);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        if (arguments != null) arguments,
+      ],
     );
   }
 
@@ -666,7 +677,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   TreeNode<AstNode>? visitExtensionDeclaration(ExtensionDeclaration node) {
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
-    final extendedType = _visitNode(node.extendedType);
     final members = _visitNodeList(node.members);
 
     return TreeNode<AstNode>(
@@ -674,8 +684,19 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       children: [
         if (metadata != null) ...metadata,
         if (typeParameters != null) typeParameters,
-        if (extendedType != null) extendedType,
         if (members != null) ...members,
+      ],
+    );
+  }
+
+  @override
+  TreeNode<AstNode>? visitExtensionOnClause(ExtensionOnClause node) {
+    final extendedType = _visitNode(node.extendedType);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        if (extendedType != null) extendedType,
       ],
     );
   }
@@ -1178,18 +1199,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLibraryAugmentationDirective(LibraryAugmentationDirective node) {
-    final uri = _visitNode(node.uri);
-
-    return TreeNode<AstNode>(
-      node,
-      children: [
-        if (uri != null) uri,
-      ],
-    );
-  }
-
-  @override
   TreeNode<AstNode>? visitLibraryDirective(LibraryDirective node) {
     final metadata = _visitNodeList(node.metadata);
 
@@ -1364,6 +1373,18 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
+  TreeNode<AstNode>? visitMixinOnClause(MixinOnClause node) {
+    final superclassConstraints = _visitNodeList(node.superclassConstraints);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        if (superclassConstraints != null) ...superclassConstraints,
+      ],
+    );
+  }
+
+  @override
   TreeNode<AstNode>? visitNamedExpression(NamedExpression node) {
     final expression = _visitNode(node.expression);
 
@@ -1416,6 +1437,18 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
+  TreeNode<AstNode>? visitNullAwareElement(NullAwareElement node) {
+    final value = _visitNode(node.value);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        if (value != null) value,
+      ],
+    );
+  }
+
+  @override
   TreeNode<AstNode>? visitNullCheckPattern(NullCheckPattern node) {
     final pattern = _visitNode(node.pattern);
 
@@ -1443,13 +1476,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       children: [
         if (fields != null) ...fields,
       ],
-    );
-  }
-
-  @override
-  TreeNode<AstNode>? visitOnClause(OnClause node) {
-    return TreeNode<AstNode>(
-      node,
     );
   }
 

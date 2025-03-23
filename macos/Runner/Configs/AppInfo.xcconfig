@@ -11,4 +11,4 @@ PRODUCT_NAME = dart_ast_node_viewer
 PRODUCT_BUNDLE_IDENTIFIER = com.charlescyt.dartAstNodeViewer
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.charlescyt. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 com.charlescyt. All rights reserved.
