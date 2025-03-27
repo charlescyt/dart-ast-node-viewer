@@ -9,6 +9,8 @@ import 'package:re_editor/re_editor.dart';
 import '../models/tree_node.dart';
 import '../utils/utils.dart';
 import '../widgets/analysis_error_list_view.dart';
+import '../widgets/app_decorated_box.dart';
+import '../widgets/ast_node_info_panel.dart';
 import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
 
@@ -105,57 +107,100 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 2,
-              child: CodeField(
-                controller: _controller,
-                onContentChanged: _onContentChanged,
-              ),
-            ),
-            const SizedBox(width: 8),
-            if (_parsedResult.errors.isEmpty)
-              Expanded(
-                child: _parsedResult.errors.isEmpty
-                    ? AstNodeTreeView(
-                        roots: [_treeNode],
-                        selected: _selectedAstNode,
-                        onNodeChanged: (node) {
-                          _onSyntacticEntityChanged(
-                            entity: node,
-                            lineInfo: _parsedResult.lineInfo,
-                          );
-                        },
-                      )
-                    : AnalysisErrorListView(
-                        errors: _parsedResult.errors,
-                        selectedError: _selectedError,
-                        onErrorSelected: (error) {
-                          _onAnalysisErrorChanged(
-                            error: error,
-                            lineInfo: _parsedResult.lineInfo,
-                          );
-                        },
-                      ),
-              ),
-            // const SizedBox(width: 8),
-            // if (_selectedAstNode case final astNode?)
-            //   Expanded(
-            //     child: AstNodeDetailsView(astNode: astNode),
-            //   )
-            // else
-            //   const Expanded(
-            //     child: AppDecoratedBox(
-            //       child: Center(
-            //         child: Text('Select an AST node'),
-            //       ),
-            //     ),
-            //   ),
-          ],
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 1400.0) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: CodeField(
+                      controller: _controller,
+                      onContentChanged: _onContentChanged,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(child: _buildTreeView()),
+                        const SizedBox(height: 8.0),
+                        Expanded(child: _buildAstNodeInfoPanel()),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: CodeField(
+                      controller: _controller,
+                      onContentChanged: _onContentChanged,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: _buildTreeView(),
+                  ),
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: _buildAstNodeInfoPanel(),
+                  ),
+                ],
+              );
+            }
+          },
         ),
       ),
+    );
+  }
+
+  Widget _buildTreeView() {
+    return _parsedResult.errors.isEmpty
+        ? AstNodeTreeView(
+            roots: [_treeNode],
+            selected: _selectedAstNode,
+            onNodeChanged: (node) {
+              _onSyntacticEntityChanged(
+                entity: node,
+                lineInfo: _parsedResult.lineInfo,
+              );
+            },
+          )
+        : AnalysisErrorListView(
+            errors: _parsedResult.errors,
+            selectedError: _selectedError,
+            onErrorSelected: (error) {
+              _onAnalysisErrorChanged(
+                error: error,
+                lineInfo: _parsedResult.lineInfo,
+              );
+            },
+          );
+  }
+
+  Widget _buildAstNodeInfoPanel() {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      child: _selectedAstNode == null
+          ? const AppDecoratedBox(
+              child: Center(
+                child: Text('Select an AST node'),
+              ),
+            )
+          : AstNodeInfoPanel(
+              key: ValueKey(_selectedSyntacticEntity.hashCode),
+              node: _selectedAstNode!,
+              onSyntacticEntitySelected: (entity) {
+                _onSyntacticEntityChanged(
+                  entity: entity,
+                  lineInfo: _parsedResult.lineInfo,
+                );
+              },
+            ),
     );
   }
 }
