@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart' show ParseStringResult;
 import 'package:analyzer/dart/ast/ast.dart' show AstNode;
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
@@ -23,10 +24,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _content = demoCode;
   late final CodeLineEditingController _controller;
-  AstNode? _selectedAstNode;
+  SyntacticEntity? _selectedSyntacticEntity;
   AnalysisError? _selectedError;
   late ParseStringResult _parsedResult;
   late TreeNode<AstNode> _treeNode;
+
+  AstNode? get _selectedAstNode => switch (_selectedSyntacticEntity) {
+        final AstNode node => node,
+        _ => null,
+      };
 
   @override
   void initState() {
@@ -49,25 +55,25 @@ class _HomePageState extends State<HomePage> {
       _content = value;
       _parsedResult = parseCode(_content);
       _treeNode = convertParseStringResultToTreeNode(_parsedResult);
-      _selectedAstNode = null;
+      _selectedSyntacticEntity = null;
       _selectedError = null;
     });
   }
 
-  void _onAstNodeChanged({
-    required AstNode? node,
+  void _onSyntacticEntityChanged({
+    required SyntacticEntity? entity,
     required LineInfo lineInfo,
   }) {
-    if (_selectedAstNode == node) return;
+    if (_selectedSyntacticEntity == entity) return;
 
     setState(() {
-      _selectedAstNode = node;
+      _selectedSyntacticEntity = entity;
 
-      if (node == null) {
+      if (entity == null) {
         _controller.selection = const CodeLineSelection.zero();
       } else {
-        _controller.selection = getCodeLineSelectionFromAstNode(
-          node: node,
+        _controller.selection = getCodeLineSelectionFromSyntacticEntity(
+          entity: entity,
           lineInfo: lineInfo,
         );
       }
@@ -100,8 +106,10 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
+              flex: 2,
               child: CodeField(
                 controller: _controller,
                 onContentChanged: _onContentChanged,
@@ -110,29 +118,27 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(width: 8),
             if (_parsedResult.errors.isEmpty)
               Expanded(
-                child: AstNodeTreeView(
-                  roots: [_treeNode],
-                  selected: _selectedAstNode,
-                  onNodeChanged: (node) {
-                    _onAstNodeChanged(
-                      node: node,
-                      lineInfo: _parsedResult.lineInfo,
-                    );
-                  },
-                ),
-              )
-            else
-              Expanded(
-                child: AnalysisErrorListView(
-                  errors: _parsedResult.errors,
-                  selectedError: _selectedError,
-                  onErrorSelected: (error) {
-                    _onAnalysisErrorChanged(
-                      error: error,
-                      lineInfo: _parsedResult.lineInfo,
-                    );
-                  },
-                ),
+                child: _parsedResult.errors.isEmpty
+                    ? AstNodeTreeView(
+                        roots: [_treeNode],
+                        selected: _selectedAstNode,
+                        onNodeChanged: (node) {
+                          _onSyntacticEntityChanged(
+                            entity: node,
+                            lineInfo: _parsedResult.lineInfo,
+                          );
+                        },
+                      )
+                    : AnalysisErrorListView(
+                        errors: _parsedResult.errors,
+                        selectedError: _selectedError,
+                        onErrorSelected: (error) {
+                          _onAnalysisErrorChanged(
+                            error: error,
+                            lineInfo: _parsedResult.lineInfo,
+                          );
+                        },
+                      ),
               ),
             // const SizedBox(width: 8),
             // if (_selectedAstNode case final astNode?)

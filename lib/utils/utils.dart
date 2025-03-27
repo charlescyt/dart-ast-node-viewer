@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:re_editor/re_editor.dart';
@@ -32,16 +33,16 @@ TreeNode<AstNode> convertParseStringResultToTreeNode(ParseStringResult result) {
   return treeNode;
 }
 
-/// Get [CodeLineSelection] from [AstNode]
+/// Get [CodeLineSelection] from [SyntacticEntity].
 ///
 /// [LineInfo] is required to calculate the line number and column number
-CodeLineSelection getCodeLineSelectionFromAstNode({
-  required AstNode node,
+CodeLineSelection getCodeLineSelectionFromSyntacticEntity({
+  required SyntacticEntity entity,
   required LineInfo lineInfo,
 }) {
   return getCodeLineSelectionFromOffsetAndLength(
-    offset: node.offset,
-    length: node.length,
+    offset: entity.offset,
+    length: entity.length,
     lineInfo: lineInfo,
   );
 }
