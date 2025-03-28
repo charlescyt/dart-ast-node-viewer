@@ -12,8 +12,10 @@ class AppDecoratedBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return DecoratedBox(
+    return Container(
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
         border: Border.fromBorderSide(BorderSide(color: theme.dividerColor)),
       ),
       child: child,
