@@ -36,8 +36,7 @@ class _SelectAstNodeDialogState extends State<SelectAstNodeDialog> {
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleLarge,
                 ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.close),
+                trailing: CloseButton(
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
