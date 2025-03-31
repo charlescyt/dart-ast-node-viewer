@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'pages/home_page.dart';
 import 'providers/app_init.dart';
 import 'providers/theme_mode.dart';
-import 'theme.dart';
+import 'themes/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
