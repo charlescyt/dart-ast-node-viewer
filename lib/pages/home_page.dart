@@ -13,6 +13,7 @@ import '../widgets/app_decorated_box.dart';
 import '../widgets/ast_node_info_panel.dart';
 import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
+import '../widgets/toggle_theme_mode_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -104,7 +105,19 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final color = theme.dividerColor;
+
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 48.0,
+        title: const Text('Dart AST Node Viewer'),
+        shape: Border(bottom: BorderSide(color: color, width: 1.0)),
+        actionsPadding: const EdgeInsets.only(right: 8.0),
+        actions: const [
+          ToggleThemeModeButton(),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: LayoutBuilder(
