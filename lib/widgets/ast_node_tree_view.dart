@@ -61,8 +61,12 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
         nodeBuilder: (context, entry) {
           final astNode = entry.node.value;
           return Ink(
-            color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
+            decoration: BoxDecoration(
+              color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            ),
             child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
               onTap: () {
                 widget.onNodeChanged(astNode);
               },
@@ -73,9 +77,12 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
                   indent: 24,
                   color: theme.dividerColor,
                 ),
-                child: Text(
-                  getAstNodeTypeName(astNode),
-                  overflow: TextOverflow.ellipsis,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Text(
+                    getAstNodeTypeName(astNode),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),
