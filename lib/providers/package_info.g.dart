@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_init.dart';
+part of 'package_info.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appInitHash() => r'5db4aff942b8d710272fce86881a6a7cc1f1829e';
+String _$packageInfoHash() => r'41f10b7668cfc9d09df704d18b851ed9440397d6';
 
-/// See also [appInit].
-@ProviderFor(appInit)
-final appInitProvider = AutoDisposeFutureProvider<void>.internal(
-  appInit,
-  name: r'appInitProvider',
+/// See also [packageInfo].
+@ProviderFor(packageInfo)
+final packageInfoProvider = FutureProvider<PackageInfo>.internal(
+  packageInfo,
+  name: r'packageInfoProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$appInitHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$packageInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef AppInitRef = AutoDisposeFutureProviderRef<void>;
+typedef PackageInfoRef = FutureProviderRef<PackageInfo>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

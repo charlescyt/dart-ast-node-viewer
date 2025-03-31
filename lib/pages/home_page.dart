@@ -8,6 +8,7 @@ import 'package:re_editor/re_editor.dart';
 
 import '../models/tree_node.dart';
 import '../utils/utils.dart';
+import '../widgets/about_button.dart';
 import '../widgets/analysis_error_list_view.dart';
 import '../widgets/app_decorated_box.dart';
 import '../widgets/ast_node_info_panel.dart';
@@ -128,6 +129,7 @@ class _HomePageState extends State<HomePage> {
         shape: Border(bottom: BorderSide(color: color, width: 1.0)),
         actionsPadding: const EdgeInsets.only(right: 8.0),
         actions: [
+          const AboutButton(),
           const GithubLinkButton(),
           const ToggleThemeModeButton(),
           IconButton(
