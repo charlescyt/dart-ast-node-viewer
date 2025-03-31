@@ -9,8 +9,8 @@ final class AppTheme {
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 1,
         subThemesData: const FlexSubThemesData(
-          interactionEffects: true,
-          tintedDisabledControls: true,
+          interactionEffects: false,
+          tintedDisabledControls: false,
           blendOnLevel: 8,
           useM2StyleDividerInM3: true,
           adaptiveAppBarScrollUnderOff: FlexAdaptive.all(),
@@ -77,8 +77,8 @@ final class AppTheme {
         surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
         blendLevel: 2,
         subThemesData: const FlexSubThemesData(
-          interactionEffects: true,
-          tintedDisabledControls: true,
+          interactionEffects: false,
+          tintedDisabledControls: false,
           blendOnLevel: 10,
           blendOnColors: true,
           useM2StyleDividerInM3: true,
