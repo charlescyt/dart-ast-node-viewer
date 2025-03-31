@@ -13,6 +13,7 @@ import '../widgets/app_decorated_box.dart';
 import '../widgets/ast_node_info_panel.dart';
 import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
+import '../widgets/github_link_button.dart';
 import '../widgets/toggle_theme_mode_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -115,6 +116,7 @@ class _HomePageState extends State<HomePage> {
         shape: Border(bottom: BorderSide(color: color, width: 1.0)),
         actionsPadding: const EdgeInsets.only(right: 8.0),
         actions: const [
+          GithubLinkButton(),
           ToggleThemeModeButton(),
         ],
       ),
