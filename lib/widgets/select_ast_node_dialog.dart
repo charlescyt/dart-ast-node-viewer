@@ -28,15 +28,18 @@ class _SelectAstNodeDialogState extends State<SelectAstNodeDialog> {
         children: [
           SizedBox(
             height: 48.0,
-            child: NavigationToolbar(
-              middle: Text(
-                'Select an AST node',
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.titleLarge,
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: NavigationToolbar(
+                middle: Text(
+                  'Select an AST node',
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.titleLarge,
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
               ),
             ),
           ),

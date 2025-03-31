@@ -28,7 +28,11 @@ class AppPanel extends StatelessWidget {
             constraints: const BoxConstraints(minHeight: 48.0),
             child: Row(
               children: [
-                if (leading != null) leading!,
+                if (leading != null)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: leading,
+                  ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -40,7 +44,11 @@ class AppPanel extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (trailing != null) trailing!,
+                if (trailing != null)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: trailing,
+                  ),
               ],
             ),
           ),
