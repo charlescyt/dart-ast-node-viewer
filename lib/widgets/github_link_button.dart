@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/link.dart';
 
 class GithubLinkButton extends StatelessWidget {
@@ -13,7 +13,7 @@ class GithubLinkButton extends StatelessWidget {
       builder: (context, followLink) {
         return IconButton(
           tooltip: 'GitHub',
-          icon: const FaIcon(FontAwesomeIcons.github),
+          icon: const Icon(LucideIcons.github),
           onPressed: followLink,
         );
       },

@@ -4,6 +4,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 
 import '../models/tree_node.dart';
@@ -134,7 +135,7 @@ class _HomePageState extends State<HomePage> {
           const ToggleThemeModeButton(),
           IconButton(
             tooltip: 'Ast Nodes',
-            icon: const Icon(Icons.grid_view_outlined),
+            icon: const Icon(LucideIcons.squareMenu),
             onPressed: _onAstNodesButtonPressed,
           ),
         ],

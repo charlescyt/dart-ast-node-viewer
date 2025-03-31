@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/link.dart';
 
 import '../models/ast_node_info.dart';
@@ -37,7 +38,8 @@ class AstNodeInfoPanel extends StatelessWidget {
         uri: node.url,
         builder: (context, followLink) {
           return IconButton(
-            icon: const Icon(Icons.description_outlined),
+            tooltip: 'Documentation',
+            icon: const Icon(LucideIcons.fileText),
             onPressed: followLink,
           );
         },

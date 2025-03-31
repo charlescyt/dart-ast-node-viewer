@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../providers/package_info.dart';
 
@@ -11,7 +12,7 @@ class AboutButton extends ConsumerWidget {
     final packageInfo = ref.watch(packageInfoProvider).requireValue;
     return IconButton(
       tooltip: 'About',
-      icon: const Icon(Icons.info_outline),
+      icon: const Icon(LucideIcons.info),
       onPressed: () => showAboutDialog(
         context: context,
         applicationName: 'Dart AST Node Viewer',
