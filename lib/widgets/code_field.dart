@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/dart.dart';
-import 'package:re_highlight/styles/monokai-sublime.dart';
 
 import 'app_decorated_box.dart';
 
@@ -12,12 +11,14 @@ class CodeField extends StatefulWidget {
     this.wordWrap = false,
     this.controller,
     this.onContentChanged,
+    required this.theme,
   });
 
   final bool readOnly;
   final bool wordWrap;
   final CodeLineEditingController? controller;
   final ValueChanged<String>? onContentChanged;
+  final Map<String, TextStyle> theme;
 
   @override
   State<CodeField> createState() => _CodeFieldState();
@@ -67,7 +68,7 @@ class _CodeFieldState extends State<CodeField> {
                 fontFamily: 'JetBrainsMono',
                 codeTheme: CodeHighlightTheme(
                   languages: {'dart': CodeHighlightThemeMode(mode: langDart)},
-                  theme: monokaiSublimeTheme,
+                  theme: widget.theme,
                 ),
               ),
               indicatorBuilder: (context, editingController, chunkController, notifier) {

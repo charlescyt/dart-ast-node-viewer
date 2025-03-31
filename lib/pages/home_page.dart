@@ -4,10 +4,12 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/error/error.dart' show AnalysisError;
 import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 
 import '../models/tree_node.dart';
+import '../providers/code_theme.dart';
 import '../utils/utils.dart';
 import '../widgets/about_button.dart';
 import '../widgets/analysis_error_list_view.dart';
@@ -17,6 +19,7 @@ import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
 import '../widgets/github_link_button.dart';
 import '../widgets/select_ast_node_dialog.dart';
+import '../widgets/select_code_theme_button.dart';
 import '../widgets/toggle_theme_mode_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -132,6 +135,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           const AboutButton(),
           const GithubLinkButton(),
+          const SelectCodeThemeButton(),
           const ToggleThemeModeButton(),
           IconButton(
             tooltip: 'Ast Nodes',
@@ -148,10 +152,7 @@ class _HomePageState extends State<HomePage> {
               return Row(
                 children: [
                   Expanded(
-                    child: CodeField(
-                      controller: _controller,
-                      onContentChanged: _onContentChanged,
-                    ),
+                    child: _buildCodeField(theme),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
@@ -171,10 +172,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     flex: 2,
-                    child: CodeField(
-                      controller: _controller,
-                      onContentChanged: _onContentChanged,
-                    ),
+                    child: _buildCodeField(theme),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
@@ -190,6 +188,20 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
+    );
+  }
+
+  Consumer _buildCodeField(ThemeData theme) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final lightCodeTheme = ref.watch(currentLightCodeThemeProvider);
+        final darkCodeTheme = ref.watch(currentDarkCodeThemeProvider);
+        return CodeField(
+          controller: _controller,
+          theme: theme.brightness == Brightness.light ? lightCodeTheme.value : darkCodeTheme.value,
+          onContentChanged: _onContentChanged,
+        );
+      },
     );
   }
 
