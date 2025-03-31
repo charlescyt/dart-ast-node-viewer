@@ -14,6 +14,7 @@ import '../widgets/ast_node_info_panel.dart';
 import '../widgets/ast_node_tree_view.dart';
 import '../widgets/code_field.dart';
 import '../widgets/github_link_button.dart';
+import '../widgets/select_ast_node_dialog.dart';
 import '../widgets/toggle_theme_mode_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -104,6 +105,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> _onAstNodesButtonPressed() async {
+    final examples = await SelectAstNodeDialog.show(context: context);
+
+    if (!context.mounted) return;
+
+    if (examples case final examples? when examples.isNotEmpty) {
+      _onContentChanged(examples);
+      _controller.text = examples;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -115,9 +127,14 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Dart AST Node Viewer'),
         shape: Border(bottom: BorderSide(color: color, width: 1.0)),
         actionsPadding: const EdgeInsets.only(right: 8.0),
-        actions: const [
-          GithubLinkButton(),
-          ToggleThemeModeButton(),
+        actions: [
+          const GithubLinkButton(),
+          const ToggleThemeModeButton(),
+          IconButton(
+            tooltip: 'Ast Nodes',
+            icon: const Icon(Icons.grid_view_outlined),
+            onPressed: _onAstNodesButtonPressed,
+          ),
         ],
       ),
       body: Padding(
