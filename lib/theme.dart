@@ -68,7 +68,7 @@ final class AppTheme {
         ),
         tones: FlexSchemeVariant.jolly.tones(Brightness.light),
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        materialTapTargetSize: MaterialTapTargetSize.padded,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         fontFamily: 'Lato',
       );
 
@@ -136,7 +136,7 @@ final class AppTheme {
         ),
         tones: FlexSchemeVariant.jolly.tones(Brightness.dark),
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        materialTapTargetSize: MaterialTapTargetSize.padded,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         fontFamily: 'Lato',
       );
 }
