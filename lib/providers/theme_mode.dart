@@ -10,13 +10,16 @@ class CurrentThemeMode extends _$CurrentThemeMode {
   @override
   ThemeMode build() {
     final prefs = ref.watch(sharedPrefsProvider).requireValue;
-    final checkedThemeModeString = prefs.getString('themeMode');
-    final themeMode = ThemeMode.values.firstWhere(
-      (e) => e.name == checkedThemeModeString,
+    final cachedThemeModeString = prefs.getString('themeMode');
+
+    if (cachedThemeModeString == null) {
+      return ThemeMode.dark;
+    }
+
+    return ThemeMode.values.firstWhere(
+      (e) => e.name == cachedThemeModeString,
       orElse: () => ThemeMode.dark,
     );
-
-    return themeMode;
   }
 
   void toggle() {
