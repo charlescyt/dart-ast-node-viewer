@@ -19,6 +19,7 @@ class App extends StatelessWidget {
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            title: 'Dart AST Node Viewer',
             theme: appTheme.light,
             darkTheme: appTheme.dark,
             themeMode: themeMode,
