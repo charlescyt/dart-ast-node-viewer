@@ -55,39 +55,42 @@ class _AstNodeTreeViewState extends State<AstNodeTreeView> {
     final theme = Theme.of(context);
 
     return AppDecoratedBox(
-      child: AnimatedTreeView<TreeNode<AstNode>>(
-        treeController: _treeController,
-        padding: const EdgeInsets.all(8.0),
-        nodeBuilder: (context, entry) {
-          final astNode = entry.node.value;
-          return Ink(
-            decoration: BoxDecoration(
-              color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            ),
-            child: InkWell(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              onTap: () {
-                widget.onNodeChanged(astNode);
-              },
-              child: TreeIndentation(
-                entry: entry,
-                guide: IndentGuide.connectingLines(
-                  connectBranches: false,
-                  indent: 24,
-                  color: theme.dividerColor,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text(
-                    getAstNodeTypeName(astNode),
-                    overflow: TextOverflow.ellipsis,
+      child: Material(
+        type: MaterialType.transparency,
+        child: AnimatedTreeView<TreeNode<AstNode>>(
+          treeController: _treeController,
+          padding: const EdgeInsets.all(8.0),
+          nodeBuilder: (context, entry) {
+            final astNode = entry.node.value;
+            return Ink(
+              decoration: BoxDecoration(
+                color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              ),
+              child: InkWell(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                onTap: () {
+                  widget.onNodeChanged(astNode);
+                },
+                child: TreeIndentation(
+                  entry: entry,
+                  guide: IndentGuide.connectingLines(
+                    connectBranches: false,
+                    indent: 24,
+                    color: theme.dividerColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      getAstNodeTypeName(astNode),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
