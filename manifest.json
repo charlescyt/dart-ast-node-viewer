@@ -1,11 +1,11 @@
 {
-    "name": "dart_ast_node_viewer",
-    "short_name": "dart_ast_node_viewer",
+    "name": "Dart AST Node Viewer",
+    "short_name": "Dart AST Node Viewer",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0d1418",
+    "theme_color": "#40C380",
+    "description": "A simple Dart AST node viewer built with Flutter.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

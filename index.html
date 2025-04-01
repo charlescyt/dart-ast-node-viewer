@@ -1,38 +1,131 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <head>
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/dart-ast-node-viewer/">
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="/dart-ast-node-viewer/" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="A new Flutter project." />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="dart_ast_node_viewer">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Dart AST Node Viewer" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-  <title>dart_ast_node_viewer</title>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <script src="flutter_bootstrap.js" async></script>
-</body>
+    <title>Dart AST Node Viewer</title>
+    <link rel="manifest" href="manifest.json" />
+    <style>
+      :root {
+        --bg-color: #0d1418;
+        --text-color: #40C380;
+        --spinner-color: #40C380;
+        --spinner-size: 1em;
+        --icon-size: 1em;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: var(--bg-color);
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      #loading-container {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bg-color);
+        z-index: 9999;
+        transition: opacity 0.8s ease;
+      }
+
+      #loading-spinner {
+        color: var(--spinner-color);
+        font-size: 10px;
+        width: var(--spinner-size);
+        height: var(--spinner-size);
+        border-radius: 50%;
+        text-indent: -9999em;
+        animation: mulShdSpin 1.3s infinite linear;
+        transform: translateZ(0);
+        will-change: box-shadow;
+      }
+
+      @keyframes mulShdSpin {
+        0%,
+        100% {
+          box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em,
+            -3em 0 0 -1em, -2em -2em 0 0;
+        }
+        12.5% {
+          box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em,
+            -3em 0 0 -1em, -2em -2em 0 -1em;
+        }
+        25% {
+          box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em,
+            -3em 0 0 -1em, -2em -2em 0 -1em;
+        }
+        37.5% {
+          box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em,
+            -3em 0em 0 -1em, -2em -2em 0 -1em;
+        }
+        50% {
+          box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0,
+            -3em 0em 0 -1em, -2em -2em 0 -1em;
+        }
+        62.5% {
+          box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em,
+            -3em 0 0 0, -2em -2em 0 -1em;
+        }
+        75% {
+          box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0,
+            -3em 0em 0 0.2em, -2em -2em 0 0;
+        }
+        87.5% {
+          box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0,
+            -3em 0em 0 0, -2em -2em 0 0.2em;
+        }
+      }
+
+      #loading-text {
+        color: var(--text-color);
+        font-size: 1rem;
+        text-align: center;
+        position: absolute;
+        bottom: 1rem;
+      }
+
+      .fade-out {
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-container">
+      <div id="loading-spinner"></div>
+      <div id="loading-text">Loading...</div>
+    </div>
+    <script src="flutter_bootstrap.js" async></script>
+  </body>
 </html>
