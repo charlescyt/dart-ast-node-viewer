@@ -6,7 +6,10 @@ final class AppTheme {
 
   ThemeData get light {
     final baseTheme = FlexThemeData.light(
-      scheme: FlexScheme.aquaBlue,
+      colors: FlexSchemeColor.from(
+        primary: const Color(0xFF40C380),
+        brightness: Brightness.light,
+      ),
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
       blendLevel: 1,
       subThemesData: const FlexSubThemesData(
@@ -87,7 +90,10 @@ final class AppTheme {
 
   ThemeData get dark {
     final baseTheme = FlexThemeData.dark(
-      scheme: FlexScheme.aquaBlue,
+      colors: FlexSchemeColor.from(
+        primary: const Color(0xFF40C380),
+        brightness: Brightness.dark,
+      ),
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
       blendLevel: 2,
       subThemesData: const FlexSubThemesData(
