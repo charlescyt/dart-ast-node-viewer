@@ -129,6 +129,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 48.0,
+        titleSpacing: 0.0,
+        leading: Image.asset('assets/images/logo.png', width: 24.0, height: 24.0),
         title: const Text('Dart AST Node Viewer'),
         shape: Border(bottom: BorderSide(color: color, width: 1.0)),
         actionsPadding: const EdgeInsets.only(right: 8.0),

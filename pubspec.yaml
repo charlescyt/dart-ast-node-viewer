@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/fonts/Lato/
     - assets/fonts/JetBrainsMono/
+    - assets/images/
 
   fonts:
     - family: Lato
