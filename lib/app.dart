@@ -50,7 +50,7 @@ class _EagerInitialization extends ConsumerWidget {
           child: Text('Oops! Something went wrong.\nError: $error'),
         ),
       ),
-      loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+      loading: () => const SizedBox.shrink(),
     );
   }
 }
