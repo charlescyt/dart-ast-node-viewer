@@ -37,10 +37,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (name != null) name,
-        if (typeArguments != null) typeArguments,
-        if (arguments != null) arguments,
-        if (constructorName != null) constructorName,
+        ?name,
+        ?typeArguments,
+        ?arguments,
+        ?constructorName,
       ],
     );
   }
@@ -65,8 +65,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
-        if (type != null) type,
+        ?expression,
+        ?type,
       ],
     );
   }
@@ -79,8 +79,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (condition != null) condition,
-        if (message != null) message,
+        ?condition,
+        ?message,
       ],
     );
   }
@@ -93,8 +93,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (condition != null) condition,
-        if (message != null) message,
+        ?condition,
+        ?message,
       ],
     );
   }
@@ -114,8 +114,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (leftHandSide != null) leftHandSide,
-        if (rightHandSide != null) rightHandSide,
+        ?leftHandSide,
+        ?rightHandSide,
       ],
     );
   }
@@ -127,7 +127,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (unParenthesized != null) unParenthesized,
+        ?unParenthesized,
       ],
     );
   }
@@ -140,8 +140,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (arguments != null) arguments,
-        if (typeArguments != null) typeArguments,
+        ?arguments,
+        ?typeArguments,
       ],
     );
   }
@@ -153,7 +153,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -166,8 +166,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (leftOperand != null) leftOperand,
-        if (rightOperand != null) rightOperand,
+        ?leftOperand,
+        ?rightOperand,
       ],
     );
   }
@@ -191,7 +191,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (block != null) block,
+        ?block,
       ],
     );
   }
@@ -210,7 +210,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (label != null) label,
+        ?label,
       ],
     );
   }
@@ -224,7 +224,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (target != null) target,
+        ?target,
         if (cascadeSections != null) ...cascadeSections,
       ],
     );
@@ -237,7 +237,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (guardedPattern != null) guardedPattern,
+        ?guardedPattern,
       ],
     );
   }
@@ -250,8 +250,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
-        if (pattern != null) pattern,
+        ?type,
+        ?pattern,
       ],
     );
   }
@@ -266,10 +266,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (exceptionType != null) exceptionType,
-        if (exceptionParameter != null) exceptionParameter,
-        if (stackTraceParameter != null) stackTraceParameter,
-        if (body != null) body,
+        ?exceptionType,
+        ?exceptionParameter,
+        ?stackTraceParameter,
+        ?body,
       ],
     );
   }
@@ -294,12 +294,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (extendsClause != null) extendsClause,
-        if (withClause != null) withClause,
-        if (implementsClause != null) implementsClause,
+        ?typeParameters,
+        ?extendsClause,
+        ?withClause,
+        ?implementsClause,
         if (members != null) ...members,
       ],
     );
@@ -317,12 +317,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (superclass != null) superclass,
-        if (withClause != null) withClause,
-        if (implementsClause != null) implementsClause,
+        ?typeParameters,
+        ?superclass,
+        ?withClause,
+        ?implementsClause,
       ],
     );
   }
@@ -345,7 +345,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -373,9 +373,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (condition != null) condition,
-        if (thenExpression != null) thenExpression,
-        if (elseExpression != null) elseExpression,
+        ?condition,
+        ?thenExpression,
+        ?elseExpression,
       ],
     );
   }
@@ -389,9 +389,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (name != null) name,
-        if (value != null) value,
-        if (uri != null) uri,
+        ?name,
+        ?value,
+        ?uri,
       ],
     );
   }
@@ -403,7 +403,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -421,13 +421,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (returnType != null) returnType,
-        if (parameters != null) parameters,
+        ?returnType,
+        ?parameters,
         if (initializers != null) ...initializers,
-        if (redirectedConstructor != null) redirectedConstructor,
-        if (body != null) body,
+        ?redirectedConstructor,
+        ?body,
       ],
     );
   }
@@ -440,8 +440,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (fieldName != null) fieldName,
-        if (expression != null) expression,
+        ?fieldName,
+        ?expression,
       ],
     );
   }
@@ -454,8 +454,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
-        if (name != null) name,
+        ?type,
+        ?name,
       ],
     );
   }
@@ -467,7 +467,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (constructorName != null) constructorName,
+        ?constructorName,
       ],
     );
   }
@@ -479,7 +479,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (name != null) name,
+        ?name,
       ],
     );
   }
@@ -492,8 +492,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (target != null) target,
-        if (label != null) label,
+        ?target,
+        ?label,
       ],
     );
   }
@@ -507,9 +507,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -521,7 +521,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -536,8 +536,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (metadata != null) ...metadata,
-        if (parameter != null) parameter,
-        if (defaultValue != null) defaultValue,
+        ?parameter,
+        ?defaultValue,
       ],
     );
   }
@@ -550,8 +550,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (body != null) body,
-        if (condition != null) condition,
+        ?body,
+        ?condition,
       ],
     );
   }
@@ -597,8 +597,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (typeArguments != null) typeArguments,
-        if (argumentList != null) argumentList,
+        ?typeArguments,
+        ?argumentList,
       ],
     );
   }
@@ -612,9 +612,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (arguments != null) arguments,
+        ?arguments,
       ],
     );
   }
@@ -632,11 +632,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (withClause != null) withClause,
-        if (implementsClause != null) implementsClause,
+        ?typeParameters,
+        ?withClause,
+        ?implementsClause,
         if (members != null) ...members,
         if (constants != null) ...constants,
       ],
@@ -654,9 +654,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (uri != null) uri,
+        ?uri,
         if (configurations != null) ...configurations,
         if (combinators != null) ...combinators,
       ],
@@ -670,7 +670,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -682,7 +682,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -694,7 +694,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (superclass != null) superclass,
+        ?superclass,
       ],
     );
   }
@@ -710,10 +710,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (onClause != null) onClause,
+        ?typeParameters,
+        ?onClause,
         if (members != null) ...members,
       ],
     );
@@ -726,7 +726,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (extendedType != null) extendedType,
+        ?extendedType,
       ],
     );
   }
@@ -740,9 +740,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (argumentList != null) argumentList,
-        if (importPrefix != null) importPrefix,
-        if (typeArguments != null) typeArguments,
+        ?argumentList,
+        ?importPrefix,
+        ?typeArguments,
       ],
     );
   }
@@ -759,11 +759,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (implementsClause != null) implementsClause,
-        if (representation != null) representation,
+        ?typeParameters,
+        ?implementsClause,
+        ?representation,
         if (members != null) ...members,
       ],
     );
@@ -778,9 +778,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (fields != null) fields,
+        ?fields,
       ],
     );
   }
@@ -796,11 +796,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (type != null) type,
-        if (parameters != null) parameters,
-        if (typeParameters != null) typeParameters,
+        ?type,
+        ?parameters,
+        ?typeParameters,
       ],
     );
   }
@@ -813,8 +813,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (loopVariable != null) loopVariable,
-        if (iterable != null) iterable,
+        ?loopVariable,
+        ?iterable,
       ],
     );
   }
@@ -827,8 +827,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (identifier != null) identifier,
-        if (iterable != null) iterable,
+        ?identifier,
+        ?iterable,
       ],
     );
   }
@@ -843,8 +843,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (metadata != null) ...metadata,
-        if (pattern != null) pattern,
-        if (iterable != null) iterable,
+        ?pattern,
+        ?iterable,
       ],
     );
   }
@@ -857,8 +857,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (forLoopParts != null) forLoopParts,
-        if (body != null) body,
+        ?forLoopParts,
+        ?body,
       ],
     );
   }
@@ -884,8 +884,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (condition != null) condition,
-        if (variables != null) variables,
+        ?condition,
+        ?variables,
         if (updaters != null) ...updaters,
       ],
     );
@@ -900,8 +900,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (initialization != null) initialization,
-        if (condition != null) condition,
+        ?initialization,
+        ?condition,
         if (updaters != null) ...updaters,
       ],
     );
@@ -916,8 +916,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (variables != null) variables,
-        if (condition != null) condition,
+        ?variables,
+        ?condition,
         if (updaters != null) ...updaters,
       ],
     );
@@ -931,8 +931,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (forLoopParts != null) forLoopParts,
-        if (body != null) body,
+        ?forLoopParts,
+        ?body,
       ],
     );
   }
@@ -947,10 +947,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (returnType != null) returnType,
-        if (functionExpression != null) functionExpression,
+        ?returnType,
+        ?functionExpression,
       ],
     );
   }
@@ -962,7 +962,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (functionDeclaration != null) functionDeclaration,
+        ?functionDeclaration,
       ],
     );
   }
@@ -976,9 +976,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (parameters != null) parameters,
-        if (typeParameters != null) typeParameters,
-        if (body != null) body,
+        ?parameters,
+        ?typeParameters,
+        ?body,
       ],
     );
   }
@@ -993,9 +993,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (function != null) function,
-        if (argumentList != null) argumentList,
-        if (typeArguments != null) typeArguments,
+        ?function,
+        ?argumentList,
+        ?typeArguments,
       ],
     );
   }
@@ -1008,8 +1008,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (function != null) function,
-        if (typeArguments != null) typeArguments,
+        ?function,
+        ?typeArguments,
       ],
     );
   }
@@ -1025,11 +1025,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (returnType != null) returnType,
-        if (typeParameters != null) typeParameters,
-        if (parameters != null) parameters,
+        ?returnType,
+        ?typeParameters,
+        ?parameters,
       ],
     );
   }
@@ -1045,11 +1045,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (returnType != null) returnType,
-        if (typeParameters != null) typeParameters,
-        if (parameters != null) parameters,
+        ?returnType,
+        ?typeParameters,
+        ?parameters,
       ],
     );
   }
@@ -1063,9 +1063,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (returnType != null) returnType,
-        if (typeParameters != null) typeParameters,
-        if (parameters != null) parameters,
+        ?returnType,
+        ?typeParameters,
+        ?parameters,
       ],
     );
   }
@@ -1080,10 +1080,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (type != null) type,
+        ?typeParameters,
+        ?type,
       ],
     );
   }
@@ -1096,8 +1096,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
-        if (whenClause != null) whenClause,
+        ?pattern,
+        ?whenClause,
       ],
     );
   }
@@ -1124,10 +1124,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
-        if (caseClause != null) caseClause,
-        if (thenElement != null) thenElement,
-        if (elseElement != null) elseElement,
+        ?expression,
+        ?caseClause,
+        ?thenElement,
+        ?elseElement,
       ],
     );
   }
@@ -1142,10 +1142,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
-        if (caseClause != null) caseClause,
-        if (thenStatement != null) thenStatement,
-        if (elseStatement != null) elseStatement,
+        ?expression,
+        ?caseClause,
+        ?thenStatement,
+        ?elseStatement,
       ],
     );
   }
@@ -1170,8 +1170,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
-        if (typeArguments != null) typeArguments,
+        ?expression,
+        ?typeArguments,
       ],
     );
   }
@@ -1188,11 +1188,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (uri != null) uri,
+        ?uri,
         if (configurations != null) ...configurations,
-        if (prefix != null) prefix,
+        ?prefix,
         if (combinators != null) ...combinators,
       ],
     );
@@ -1214,8 +1214,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (realTarget != null) realTarget,
-        if (index != null) index,
+        ?realTarget,
+        ?index,
       ],
     );
   }
@@ -1228,8 +1228,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (constructorName != null) constructorName,
-        if (argumentList != null) argumentList,
+        ?constructorName,
+        ?argumentList,
       ],
     );
   }
@@ -1248,7 +1248,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -1268,8 +1268,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
-        if (type != null) type,
+        ?expression,
+        ?type,
       ],
     );
   }
@@ -1281,7 +1281,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (label != null) label,
+        ?label,
       ],
     );
   }
@@ -1294,7 +1294,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (statement != null) statement,
+        ?statement,
         if (labels != null) ...labels,
       ],
     );
@@ -1309,9 +1309,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (name2 != null) name2,
+        ?name2,
       ],
     );
   }
@@ -1336,7 +1336,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (typeArguments != null) typeArguments,
+        ?typeArguments,
         if (elements != null) ...elements,
       ],
     );
@@ -1351,7 +1351,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (elements != null) ...elements,
-        if (typeArguments != null) typeArguments,
+        ?typeArguments,
       ],
     );
   }
@@ -1364,8 +1364,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (leftOperand != null) leftOperand,
-        if (rightOperand != null) rightOperand,
+        ?leftOperand,
+        ?rightOperand,
       ],
     );
   }
@@ -1378,8 +1378,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (leftOperand != null) leftOperand,
-        if (rightOperand != null) rightOperand,
+        ?leftOperand,
+        ?rightOperand,
       ],
     );
   }
@@ -1392,8 +1392,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (key != null) key,
-        if (value != null) value,
+        ?key,
+        ?value,
       ],
     );
   }
@@ -1407,7 +1407,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (elements != null) ...elements,
-        if (typeArguments != null) typeArguments,
+        ?typeArguments,
       ],
     );
   }
@@ -1420,8 +1420,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (key != null) key,
-        if (value != null) value,
+        ?key,
+        ?value,
       ],
     );
   }
@@ -1438,12 +1438,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (returnType != null) returnType,
-        if (typeParameters != null) typeParameters,
-        if (parameters != null) parameters,
-        if (body != null) body,
+        ?returnType,
+        ?typeParameters,
+        ?parameters,
+        ?body,
       ],
     );
   }
@@ -1460,11 +1460,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (target != null) target,
+        ?target,
         // if (realTarget != null) realTarget,
-        if (methodName != null) methodName,
-        if (typeArguments != null) typeArguments,
-        if (argumentList != null) argumentList,
+        ?methodName,
+        ?typeArguments,
+        ?argumentList,
         // if (function != null) function,
       ],
     );
@@ -1482,11 +1482,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (typeParameters != null) typeParameters,
-        if (onClause != null) onClause,
-        if (implementsClause != null) implementsClause,
+        ?typeParameters,
+        ?onClause,
+        ?implementsClause,
         if (members != null) ...members,
       ],
     );
@@ -1512,8 +1512,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (name != null) name,
-        if (expression != null) expression,
+        ?name,
+        ?expression,
       ],
     );
   }
@@ -1526,8 +1526,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (importPrefix != null) importPrefix,
-        if (typeArguments != null) typeArguments,
+        ?importPrefix,
+        ?typeArguments,
       ],
     );
   }
@@ -1539,7 +1539,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (name != null) name,
+        ?name,
       ],
     );
   }
@@ -1551,7 +1551,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (stringLiteral != null) stringLiteral,
+        ?stringLiteral,
       ],
     );
   }
@@ -1563,7 +1563,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
+        ?pattern,
       ],
     );
   }
@@ -1575,7 +1575,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (value != null) value,
+        ?value,
       ],
     );
   }
@@ -1587,7 +1587,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
+        ?pattern,
       ],
     );
   }
@@ -1607,7 +1607,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
+        ?type,
         if (fields != null) ...fields,
       ],
     );
@@ -1620,7 +1620,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -1632,7 +1632,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
+        ?pattern,
       ],
     );
   }
@@ -1647,9 +1647,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (uri != null) uri,
+        ?uri,
         if (configurations != null) ...configurations,
       ],
     );
@@ -1665,10 +1665,10 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (uri != null) uri,
-        if (libraryName != null) libraryName,
+        ?uri,
+        ?libraryName,
       ],
     );
   }
@@ -1681,8 +1681,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
-        if (expression != null) expression,
+        ?pattern,
+        ?expression,
       ],
     );
   }
@@ -1694,7 +1694,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
+        ?pattern,
       ],
     );
   }
@@ -1714,8 +1714,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
-        if (expression != null) expression,
+        ?pattern,
+        ?expression,
       ],
     );
   }
@@ -1727,7 +1727,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (declaration != null) declaration,
+        ?declaration,
       ],
     );
   }
@@ -1739,7 +1739,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (operand != null) operand,
+        ?operand,
       ],
     );
   }
@@ -1752,8 +1752,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (prefix != null) prefix,
-        if (identifier != null) identifier,
+        ?prefix,
+        ?identifier,
       ],
     );
   }
@@ -1765,7 +1765,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (operand != null) operand,
+        ?operand,
       ],
     );
   }
@@ -1778,8 +1778,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (realTarget != null) realTarget,
-        if (propertyName != null) propertyName,
+        ?realTarget,
+        ?propertyName,
       ],
     );
   }
@@ -1817,7 +1817,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (positionalFields != null) ...positionalFields,
-        if (namedFields != null) namedFields,
+        ?namedFields,
       ],
     );
   }
@@ -1831,7 +1831,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (metadata != null) ...metadata,
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -1857,7 +1857,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (metadata != null) ...metadata,
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -1870,8 +1870,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (constructorName != null) constructorName,
-        if (argumentList != null) argumentList,
+        ?constructorName,
+        ?argumentList,
       ],
     );
   }
@@ -1883,7 +1883,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (operand != null) operand,
+        ?operand,
       ],
     );
   }
@@ -1905,8 +1905,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (fieldMetadata != null) ...fieldMetadata,
-        if (fieldType != null) fieldType,
-        if (constructorName != null) constructorName,
+        ?fieldType,
+        ?constructorName,
       ],
     );
   }
@@ -1918,7 +1918,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (pattern != null) pattern,
+        ?pattern,
       ],
     );
   }
@@ -1937,7 +1937,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -1957,7 +1957,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (typeArguments != null) typeArguments,
+        ?typeArguments,
         if (elements != null) ...elements,
       ],
     );
@@ -1984,9 +1984,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -2012,7 +2012,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -2037,8 +2037,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (constructorName != null) constructorName,
-        if (argumentList != null) argumentList,
+        ?constructorName,
+        ?argumentList,
       ],
     );
   }
@@ -2061,11 +2061,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (type != null) type,
-        if (parameters != null) parameters,
-        if (typeParameters != null) typeParameters,
+        ?type,
+        ?parameters,
+        ?typeParameters,
       ],
     );
   }
@@ -2080,7 +2080,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (labels != null) ...labels,
-        if (expression != null) expression,
+        ?expression,
         if (statements != null) ...statements,
       ],
     );
@@ -2108,7 +2108,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
         if (cases != null) ...cases,
       ],
     );
@@ -2122,8 +2122,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (guardedPattern != null) guardedPattern,
-        if (expression != null) expression,
+        ?guardedPattern,
+        ?expression,
       ],
     );
   }
@@ -2138,7 +2138,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       node,
       children: [
         if (labels != null) ...labels,
-        if (guardedPattern != null) guardedPattern,
+        ?guardedPattern,
         if (statements != null) ...statements,
       ],
     );
@@ -2152,7 +2152,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
         if (members != null) ...members,
       ],
     );
@@ -2179,7 +2179,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -2193,9 +2193,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (variables != null) variables,
+        ?variables,
       ],
     );
   }
@@ -2209,9 +2209,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (body != null) body,
+        ?body,
         if (catchClauses != null) ...catchClauses,
-        if (finallyBlock != null) finallyBlock,
+        ?finallyBlock,
       ],
     );
   }
@@ -2235,7 +2235,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -2249,9 +2249,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (bound != null) bound,
+        ?bound,
       ],
     );
   }
@@ -2277,9 +2277,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (initializer != null) initializer,
+        ?initializer,
       ],
     );
   }
@@ -2294,9 +2294,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (documentationComment != null) documentationComment,
+        ?documentationComment,
         if (metadata != null) ...metadata,
-        if (type != null) type,
+        ?type,
         if (variables != null) ...variables,
       ],
     );
@@ -2309,7 +2309,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (variables != null) variables,
+        ?variables,
       ],
     );
   }
@@ -2321,7 +2321,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
@@ -2334,8 +2334,8 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (condition != null) condition,
-        if (body != null) body,
+        ?condition,
+        ?body,
       ],
     );
   }
@@ -2347,7 +2347,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (type != null) type,
+        ?type,
       ],
     );
   }
@@ -2371,7 +2371,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     return TreeNode<AstNode>(
       node,
       children: [
-        if (expression != null) expression,
+        ?expression,
       ],
     );
   }
