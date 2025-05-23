@@ -1,10 +1,10 @@
 name: dart_ast_node_viewer
 description: "A simple Dart AST node viewer."
 publish_to: "none"
-version: 0.1.0+1
+version: 0.2.0+1
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
   analyzer: ^7.3.0
@@ -29,7 +29,7 @@ dev_dependencies:
   build_runner: ^2.4.15
   choco_lints:
     git:
-      ref: v1.4.0
+      ref: v1.6.0
       url: https://github.com/charlescyt/choco_lints.git
   custom_lint: ^0.7.5
   flutter_test:
