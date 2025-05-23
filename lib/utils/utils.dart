@@ -267,6 +267,9 @@ String getAstNodeTypeName(AstNode node) {
 
 extension AstNodeX on AstNode {
   Uri get url {
-    return Uri.https('pub.dev', '/documentation/analyzer/latest/dart_ast_ast/${getAstNodeTypeName(this)}-class.html');
+    return Uri.https(
+      'pub.dev',
+      '/documentation/analyzer/latest/dart_ast_ast/${getAstNodeTypeName(this)}-class.html',
+    );
   }
 }

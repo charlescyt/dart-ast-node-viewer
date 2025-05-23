@@ -40,9 +40,9 @@ class _HomePageState extends State<HomePage> {
   late TreeNode<AstNode> _treeNode;
 
   AstNode? get _selectedAstNode => switch (_selectedSyntacticEntity) {
-        final AstNode node => node,
-        _ => null,
-      };
+    final AstNode node => node,
+    _ => null,
+  };
 
   @override
   void initState() {

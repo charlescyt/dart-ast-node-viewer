@@ -6,15 +6,14 @@ part of 'prefs.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPrefsHash() => r'd5d8ffd83796d2c7db22669d1f9eaaa5417d4a01';
+String _$sharedPrefsHash() => r'8e655e7123c68d1b0957b25eaf645157350051a6';
 
 /// See also [sharedPrefs].
 @ProviderFor(sharedPrefs)
 final sharedPrefsProvider = FutureProvider<SharedPreferencesWithCache>.internal(
   sharedPrefs,
   name: r'sharedPrefsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$sharedPrefsHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$sharedPrefsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

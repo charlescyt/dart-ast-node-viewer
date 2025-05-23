@@ -58,7 +58,7 @@ class _AnalysisErrorCard extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
-        subtitle: correctionMessage != null //
+        subtitle: correctionMessage != null
             ? Text(
                 correctionMessage,
                 maxLines: 3,

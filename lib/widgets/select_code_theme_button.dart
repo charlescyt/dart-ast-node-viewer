@@ -16,7 +16,11 @@ class SelectCodeThemeButton extends ConsumerWidget {
       onPressed: () async {
         final lightTheme = ref.read(currentLightCodeThemeProvider);
         final darkTheme = ref.read(currentDarkCodeThemeProvider);
-        final result = await SelectCodeThemeDialog.show(context, lightTheme: lightTheme, darkTheme: darkTheme);
+        final result = await SelectCodeThemeDialog.show(
+          context,
+          lightTheme: lightTheme,
+          darkTheme: darkTheme,
+        );
 
         if (result case (:final lightTheme, :final darkTheme)) {
           ref.read(currentLightCodeThemeProvider.notifier).set(lightTheme);

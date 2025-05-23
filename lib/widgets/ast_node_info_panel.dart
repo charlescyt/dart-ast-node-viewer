@@ -120,18 +120,18 @@ class AstNodeInfoView extends StatelessWidget {
         for (final entry in nodeEntries)
           switch (entry) {
             SingleNodeEntry(:final label, :final node) => NodeTile(
-                label: label,
-                node: node,
-                onTap: () {
-                  if (node == null) return;
-                  onSyntacticEntityTap(node);
-                },
-              ),
+              label: label,
+              node: node,
+              onTap: () {
+                if (node == null) return;
+                onSyntacticEntityTap(node);
+              },
+            ),
             NodeListEntry(:final label, :final nodeList) => NodeListTile(
-                label: label,
-                nodeList: nodeList,
-                onTap: onSyntacticEntityTap,
-              ),
+              label: label,
+              nodeList: nodeList,
+              onTap: onSyntacticEntityTap,
+            ),
           },
         if (tokenEntries.isNotEmpty) //
           const Divider(height: 1),

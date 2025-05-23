@@ -13,8 +13,7 @@ String _$appInitHash() => r'5db4aff942b8d710272fce86881a6a7cc1f1829e';
 final appInitProvider = AutoDisposeFutureProvider<void>.internal(
   appInit,
   name: r'appInitProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$appInitHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$appInitHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

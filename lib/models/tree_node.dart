@@ -6,7 +6,7 @@ class TreeNode<T> {
   final List<TreeNode<T>> children;
 
   const TreeNode(
-    this.value,{
+    this.value, {
     List<TreeNode<T>>? children,
   }) : children = children ?? const [];
 

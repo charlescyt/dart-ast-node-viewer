@@ -90,8 +90,7 @@ enum LightCodeTheme {
   stackoverflowLight('stackoverflow-light', stackoverflowLightTheme),
   tokyoNightLight('tokyo-night-light', tokyoNightLightTheme),
   vs('vs', vsTheme),
-  xcode('xcode', xcodeTheme),
-  ;
+  xcode('xcode', xcodeTheme);
 
   final String label;
   final Map<String, TextStyle> value;
@@ -153,8 +152,7 @@ enum DarkCodeTheme {
   tomorrowNightBlue('tomorrow-night-blue', tomorrowNightBlueTheme),
   tomorrowNightBright('tomorrow-night-bright', tomorrowNightBrightTheme),
   vs2015('vs2015', vs2015Theme),
-  xt256('xt256', xt256Theme),
-  ;
+  xt256('xt256', xt256Theme);
 
   final String label;
   final Map<String, TextStyle> value;

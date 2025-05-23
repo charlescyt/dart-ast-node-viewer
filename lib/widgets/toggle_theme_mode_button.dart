@@ -13,9 +13,7 @@ class ToggleThemeModeButton extends ConsumerWidget {
 
     return IconButton(
       tooltip: 'Toggle Theme',
-      icon: themeMode == ThemeMode.dark //
-          ? const Icon(LucideIcons.moon)
-          : const Icon(LucideIcons.sun),
+      icon: themeMode == ThemeMode.dark ? const Icon(LucideIcons.moon) : const Icon(LucideIcons.sun),
       onPressed: () => ref.read(currentThemeModeProvider.notifier).toggle(),
     );
   }

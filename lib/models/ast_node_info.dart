@@ -203,12 +203,18 @@ class AstNodeInfo {
       final ForPartsWithPattern node => AstNodeInfo._fromForPartsWithPattern(node),
       final ForStatement node => AstNodeInfo._fromForStatement(node),
       final FunctionDeclaration node => AstNodeInfo._fromFunctionDeclaration(node),
-      final FunctionDeclarationStatement node => AstNodeInfo._fromFunctionDeclarationStatement(node),
+      final FunctionDeclarationStatement node => AstNodeInfo._fromFunctionDeclarationStatement(
+        node,
+      ),
       final FunctionExpression node => AstNodeInfo._fromFunctionExpression(node),
-      final FunctionExpressionInvocation node => AstNodeInfo._fromFunctionExpressionInvocation(node),
+      final FunctionExpressionInvocation node => AstNodeInfo._fromFunctionExpressionInvocation(
+        node,
+      ),
       final FunctionReference node => AstNodeInfo._fromFunctionReference(node),
       final FunctionTypeAlias node => AstNodeInfo._fromFunctionTypeAlias(node),
-      final FunctionTypedFormalParameter node => AstNodeInfo._fromFunctionTypedFormalParameter(node),
+      final FunctionTypedFormalParameter node => AstNodeInfo._fromFunctionTypedFormalParameter(
+        node,
+      ),
       final GenericFunctionType node => AstNodeInfo._fromGenericFunctionType(node),
       final GenericTypeAlias node => AstNodeInfo._fromGenericTypeAlias(node),
       final GuardedPattern node => AstNodeInfo._fromGuardedPattern(node),
@@ -265,12 +271,16 @@ class AstNodeInfo {
       final RecordLiteral node => AstNodeInfo._fromRecordLiteral(node),
       final RecordPattern node => AstNodeInfo._fromRecordPattern(node),
       final RecordTypeAnnotation node => AstNodeInfo._fromRecordTypeAnnotation(node),
-      final RecordTypeAnnotationNamedField node => AstNodeInfo._fromRecordTypeAnnotationNamedField(node),
+      final RecordTypeAnnotationNamedField node => AstNodeInfo._fromRecordTypeAnnotationNamedField(
+        node,
+      ),
       final RecordTypeAnnotationNamedFields node => AstNodeInfo._fromRecordTypeAnnotationNamedFields(node),
       final RecordTypeAnnotationPositionalField node => AstNodeInfo._fromRecordTypeAnnotationPositionalField(node),
       final RedirectingConstructorInvocation node => AstNodeInfo._fromRedirectingConstructorInvocation(node),
       final RelationalPattern node => AstNodeInfo._fromRelationalPattern(node),
-      final RepresentationConstructorName node => AstNodeInfo._fromRepresentationConstructorName(node),
+      final RepresentationConstructorName node => AstNodeInfo._fromRepresentationConstructorName(
+        node,
+      ),
       final RepresentationDeclaration node => AstNodeInfo._fromRepresentationDeclaration(node),
       final RestPatternElement node => AstNodeInfo._fromRestPatternElement(node),
       final RethrowExpression node => AstNodeInfo._fromRethrowExpression(node),
@@ -303,7 +313,9 @@ class AstNodeInfo {
       final TypeParameterList node => AstNodeInfo._fromTypeParameterList(node),
       final VariableDeclaration node => AstNodeInfo._fromVariableDeclaration(node),
       final VariableDeclarationList node => AstNodeInfo._fromVariableDeclarationList(node),
-      final VariableDeclarationStatement node => AstNodeInfo._fromVariableDeclarationStatement(node),
+      final VariableDeclarationStatement node => AstNodeInfo._fromVariableDeclarationStatement(
+        node,
+      ),
       final WhenClause node => AstNodeInfo._fromWhenClause(node),
       final WhileStatement node => AstNodeInfo._fromWhileStatement(node),
       final WildcardPattern node => AstNodeInfo._fromWildcardPattern(node),
@@ -2212,7 +2224,9 @@ class AstNodeInfo {
     );
   }
 
-  factory AstNodeInfo._fromPatternVariableDeclarationStatement(PatternVariableDeclarationStatement node) {
+  factory AstNodeInfo._fromPatternVariableDeclarationStatement(
+    PatternVariableDeclarationStatement node,
+  ) {
     return AstNodeInfo(
       node: node,
       nodeEntries: [
@@ -2368,7 +2382,9 @@ class AstNodeInfo {
     );
   }
 
-  factory AstNodeInfo._fromRecordTypeAnnotationPositionalField(RecordTypeAnnotationPositionalField node) {
+  factory AstNodeInfo._fromRecordTypeAnnotationPositionalField(
+    RecordTypeAnnotationPositionalField node,
+  ) {
     return AstNodeInfo(
       node: node,
       nodeEntries: [

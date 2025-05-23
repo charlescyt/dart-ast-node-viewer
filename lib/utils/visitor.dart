@@ -1721,7 +1721,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPatternVariableDeclarationStatement(PatternVariableDeclarationStatement node) {
+  TreeNode<AstNode>? visitPatternVariableDeclarationStatement(
+    PatternVariableDeclarationStatement node,
+  ) {
     final declaration = _visitNode(node.declaration);
 
     return TreeNode<AstNode>(
@@ -1849,7 +1851,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordTypeAnnotationPositionalField(RecordTypeAnnotationPositionalField node) {
+  TreeNode<AstNode>? visitRecordTypeAnnotationPositionalField(
+    RecordTypeAnnotationPositionalField node,
+  ) {
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 

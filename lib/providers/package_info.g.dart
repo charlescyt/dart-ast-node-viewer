@@ -6,15 +6,14 @@ part of 'package_info.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$packageInfoHash() => r'41f10b7668cfc9d09df704d18b851ed9440397d6';
+String _$packageInfoHash() => r'cc57db7b4684ab0d5df0f050b8ea045a3658e89a';
 
 /// See also [packageInfo].
 @ProviderFor(packageInfo)
 final packageInfoProvider = FutureProvider<PackageInfo>.internal(
   packageInfo,
   name: r'packageInfoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$packageInfoHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$packageInfoHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

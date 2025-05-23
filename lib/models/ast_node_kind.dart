@@ -170,8 +170,7 @@ enum AstNodeKind {
   whileStatement(whileStatementExample),
   wildcardPattern(wildcardPatternExample),
   withClause(withClauseExample),
-  yieldStatement(yieldStatementExample),
-  ;
+  yieldStatement(yieldStatementExample);
 
   final String example;
 
