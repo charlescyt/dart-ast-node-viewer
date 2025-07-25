@@ -31,7 +31,7 @@ dev_dependencies:
     git:
       ref: v1.6.0
       url: https://github.com/charlescyt/choco_lints.git
-  custom_lint: ^0.7.5
+  custom_lint: ^0.7.6
   flutter_test:
     sdk: flutter
   riverpod_generator: ^2.6.5
