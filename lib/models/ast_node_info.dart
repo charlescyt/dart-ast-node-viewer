@@ -176,6 +176,8 @@ class AstNodeInfo {
       final DeclaredVariablePattern node => AstNodeInfo._fromDeclaredVariablePattern(node),
       final DefaultFormalParameter node => AstNodeInfo._fromDefaultFormalParameter(node),
       final DoStatement node => AstNodeInfo._fromDoStatement(node),
+      final DotShorthandInvocation node => AstNodeInfo._fromDotShorthandInvocation(node),
+      final DotShorthandPropertyAccess node => AstNodeInfo._fromDotShorthandPropertyAccess(node),
       final DottedName node => AstNodeInfo._fromDottedName(node),
       final DoubleLiteral node => AstNodeInfo._fromDoubleLiteral(node),
       final EmptyFunctionBody node => AstNodeInfo._fromEmptyFunctionBody(node),
@@ -919,6 +921,33 @@ class AstNodeInfo {
         TokenEntry('leftParenthesis', node.leftParenthesis),
         TokenEntry('rightParenthesis', node.rightParenthesis),
         TokenEntry('semicolon', node.semicolon),
+      ],
+    );
+  }
+
+  factory AstNodeInfo._fromDotShorthandInvocation(DotShorthandInvocation node) {
+    return AstNodeInfo(
+      node: node,
+      nodeEntries: [
+        SingleNodeEntry('memberName', node.memberName),
+        SingleNodeEntry('typeArguments', node.typeArguments),
+        SingleNodeEntry('argumentList', node.argumentList),
+        SingleNodeEntry('function', node.function),
+      ],
+      tokenEntries: [
+        TokenEntry('period', node.period),
+      ],
+    );
+  }
+
+  factory AstNodeInfo._fromDotShorthandPropertyAccess(DotShorthandPropertyAccess node) {
+    return AstNodeInfo(
+      node: node,
+      nodeEntries: [
+        SingleNodeEntry('propertyName', node.propertyName),
+      ],
+      tokenEntries: [
+        TokenEntry('period', node.period),
       ],
     );
   }

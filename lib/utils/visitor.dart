@@ -557,6 +557,34 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
+  TreeNode<AstNode>? visitDotShorthandInvocation(DotShorthandInvocation node) {
+    final memberName = _visitNode(node.memberName);
+    final typeArguments = _visitNode(node.typeArguments);
+    final argumentList = _visitNode(node.argumentList);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        ?memberName,
+        ?typeArguments,
+        ?argumentList,
+      ],
+    );
+  }
+
+  @override
+  TreeNode<AstNode>? visitDotShorthandPropertyAccess(DotShorthandPropertyAccess node) {
+    final propertyName = _visitNode(node.propertyName);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        ?propertyName,
+      ],
+    );
+  }
+
+  @override
   TreeNode<AstNode>? visitDottedName(DottedName node) {
     final components = _visitNodeList(node.components);
 

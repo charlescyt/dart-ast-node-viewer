@@ -128,6 +128,8 @@ String getAstNodeTypeName(AstNode node) {
     final DeclaredVariablePattern _ => 'DeclaredVariablePattern',
     final DefaultFormalParameter _ => 'DefaultFormalParameter',
     final DoStatement _ => 'DoStatement',
+    final DotShorthandInvocation _ => 'DotShorthandInvocation',
+    final DotShorthandPropertyAccess _ => 'DotShorthandPropertyAccess',
     final DottedName _ => 'DottedName',
     final DoubleLiteral _ => 'DoubleLiteral',
     final EmptyFunctionBody _ => 'EmptyFunctionBody',
