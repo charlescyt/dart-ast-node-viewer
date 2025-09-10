@@ -5,9 +5,10 @@ import 'pages/home_page.dart';
 import 'providers/app_init.dart';
 import 'providers/theme_mode.dart';
 import 'themes/theme.dart';
+import 'utils/app.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+class DartAstNodeViewer extends StatelessWidget {
+  const DartAstNodeViewer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class App extends StatelessWidget {
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Dart AST Node Viewer',
+            title: App.title,
             theme: appTheme.light,
             darkTheme: appTheme.dark,
             themeMode: themeMode,

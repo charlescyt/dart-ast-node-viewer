@@ -14,5 +14,5 @@ void main() {
     yield LicenseEntryWithLineBreaks(['JetBrains Mono'], jetBrainsMonoLicense);
   });
 
-  runApp(const ProviderScope(child: App()));
+  runApp(const ProviderScope(child: DartAstNodeViewer()));
 }

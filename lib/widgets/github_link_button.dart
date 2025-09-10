@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/link.dart';
 
+import '../utils/app.dart';
+
 class GithubLinkButton extends StatelessWidget {
   const GithubLinkButton({super.key});
 
@@ -9,7 +11,7 @@ class GithubLinkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Link(
       target: LinkTarget.blank,
-      uri: Uri.parse('https://github.com/charlescyt/dart-ast-node-viewer'),
+      uri: Uri.parse(App.githubUrl),
       builder: (context, followLink) {
         return IconButton(
           tooltip: 'GitHub',

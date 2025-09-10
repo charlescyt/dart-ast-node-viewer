@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/dart.dart';
 
+import '../utils/app.dart';
 import 'app_decorated_box.dart';
 
 class CodeField extends StatefulWidget {
@@ -65,7 +66,7 @@ class _CodeFieldState extends State<CodeField> {
               onChanged: (value) => widget.onContentChanged?.call(value.codeLines.asString(TextLineBreak.lf)),
               style: CodeEditorStyle(
                 fontSize: 14.0,
-                fontFamily: 'JetBrainsMono',
+                fontFamily: App.codeFontFamily,
                 codeTheme: CodeHighlightTheme(
                   languages: {'dart': CodeHighlightThemeMode(mode: langDart)},
                   theme: widget.theme,

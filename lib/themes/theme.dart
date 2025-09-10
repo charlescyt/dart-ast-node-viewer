@@ -1,13 +1,15 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/app.dart';
+
 final class AppTheme {
   const AppTheme();
 
   ThemeData get light {
     final baseTheme = FlexThemeData.light(
       colors: FlexSchemeColor.from(
-        primary: const Color(0xFF40C380),
+        primary: App.primaryColor,
         brightness: Brightness.light,
       ),
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
@@ -74,7 +76,7 @@ final class AppTheme {
       tones: FlexSchemeVariant.jolly.tones(Brightness.light),
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      fontFamily: 'Lato',
+      fontFamily: App.fontFamily,
     );
 
     return baseTheme.copyWith(
@@ -91,7 +93,7 @@ final class AppTheme {
   ThemeData get dark {
     final baseTheme = FlexThemeData.dark(
       colors: FlexSchemeColor.from(
-        primary: const Color(0xFF40C380),
+        primary: App.primaryColor,
         brightness: Brightness.dark,
       ),
       surfaceMode: FlexSurfaceMode.highScaffoldLowSurface,
@@ -158,7 +160,7 @@ final class AppTheme {
       tones: FlexSchemeVariant.jolly.tones(Brightness.dark),
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      fontFamily: 'Lato',
+      fontFamily: App.fontFamily,
     );
 
     return baseTheme.copyWith(

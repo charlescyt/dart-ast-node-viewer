@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../providers/package_info.dart';
+import '../utils/app.dart';
 
 class AboutButton extends ConsumerWidget {
   const AboutButton({super.key});
@@ -15,7 +16,8 @@ class AboutButton extends ConsumerWidget {
       icon: const Icon(LucideIcons.info),
       onPressed: () => showAboutDialog(
         context: context,
-        applicationName: 'Dart AST Node Viewer',
+        applicationName: App.title,
+        applicationIcon: Image.asset(App.logoPath, width: 48.0, height: 48.0),
         applicationVersion: 'v${packageInfo.version}',
       ),
     );

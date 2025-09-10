@@ -53,6 +53,6 @@ flutter:
         - asset: assets/fonts/Lato/Lato-Bold.ttf
           weight: 700
 
-    - family: JetBrainsMono
+    - family: JetBrains Mono
       fonts:
         - asset: assets/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf

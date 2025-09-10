@@ -10,6 +10,7 @@ import 'package:re_editor/re_editor.dart';
 
 import '../models/tree_node.dart';
 import '../providers/code_theme.dart';
+import '../utils/app.dart';
 import '../utils/utils.dart';
 import '../widgets/about_button.dart';
 import '../widgets/analysis_error_list_view.dart';
@@ -130,8 +131,8 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         toolbarHeight: 48.0,
         titleSpacing: 0.0,
-        leading: Image.asset('assets/images/logo.png', width: 24.0, height: 24.0),
-        title: const Text('Dart AST Node Viewer'),
+        leading: Image.asset(App.logoPath, width: 24.0, height: 24.0),
+        title: const Text(App.title),
         shape: Border(bottom: BorderSide(color: color, width: 1.0)),
         actionsPadding: const EdgeInsets.only(right: 8.0),
         actions: [
