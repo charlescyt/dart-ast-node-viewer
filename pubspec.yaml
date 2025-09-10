@@ -5,7 +5,7 @@ version: 0.2.0+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
-  flutter: ">=3.35.1"
+  flutter: ">=3.35.3"
 
 dependencies:
   analyzer: ^7.6.0
