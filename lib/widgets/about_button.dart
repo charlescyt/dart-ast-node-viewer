@@ -19,6 +19,11 @@ class AboutButton extends ConsumerWidget {
         applicationName: App.title,
         applicationIcon: Image.asset(App.logoPath, width: 48.0, height: 48.0),
         applicationVersion: 'v${packageInfo.version}',
+        applicationLegalese: '© ${DateTime.now().year}\n${App.author}\n${App.license}',
+        children: [
+          const SizedBox(height: 24.0),
+          const Text('Built with Flutter ${App.flutterChannel} ${App.flutterVersion}.'),
+        ],
       ),
     );
   }
