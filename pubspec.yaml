@@ -22,7 +22,7 @@ dependencies:
   package_info_plus: ^9.0.0
   re_editor: ^0.7.0
   re_highlight: ^0.0.3
-  riverpod_annotation: ^3.0.0-dev.17
+  riverpod_annotation: ^3.0.0
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
 
@@ -35,7 +35,7 @@ dev_dependencies:
   custom_lint: ^0.8.0
   flutter_test:
     sdk: flutter
-  riverpod_generator: ^3.0.0-dev.17
+  riverpod_generator: ^3.0.0
   riverpod_lint: ^3.0.0
 
 flutter:
