@@ -1,9 +1,9 @@
-import 'package:analyzer/error/error.dart' show AnalysisError;
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:flutter/material.dart';
 
 import 'app_decorated_box.dart';
 
-typedef AnalysisErrorCallback = void Function(AnalysisError error);
+typedef AnalysisErrorCallback = void Function(Diagnostic error);
 
 class AnalysisErrorListView extends StatelessWidget {
   const AnalysisErrorListView({
@@ -13,8 +13,8 @@ class AnalysisErrorListView extends StatelessWidget {
     required this.onErrorSelected,
   });
 
-  final List<AnalysisError> errors;
-  final AnalysisError? selectedError;
+  final List<Diagnostic> errors;
+  final Diagnostic? selectedError;
   final AnalysisErrorCallback onErrorSelected;
 
   @override
@@ -42,13 +42,13 @@ class _AnalysisErrorCard extends StatelessWidget {
     required this.onErrorSelected,
   });
 
-  final AnalysisError error;
+  final Diagnostic error;
   final bool selected;
   final AnalysisErrorCallback onErrorSelected;
 
   @override
   Widget build(BuildContext context) {
-    final correctionMessage = error.errorCode.correctionMessage;
+    final correctionMessage = error.diagnosticCode.correctionMessage;
 
     return Card(
       child: ListTile(

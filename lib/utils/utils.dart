@@ -1,9 +1,11 @@
+import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/source/line_info.dart';
+import 'package:pub_semver/pub_semver.dart';
 import 'package:re_editor/re_editor.dart';
 
 import '../models/tree_node.dart';
@@ -13,6 +15,12 @@ ParseStringResult parseCode(String content) {
   final result = parseString(
     content: content,
     throwIfDiagnostics: false,
+    featureSet: FeatureSet.fromEnableFlags2(
+      sdkLanguageVersion: Version(3, 10, 0),
+      flags: [
+        Feature.dot_shorthands.enableString,
+      ]
+    ),
   );
 
   return result;
@@ -47,11 +55,11 @@ CodeLineSelection getCodeLineSelectionFromSyntacticEntity({
   );
 }
 
-/// Get [CodeLineSelection] from [AnalysisError].
+/// Get [CodeLineSelection] from [Diagnostic].
 ///
 /// [LineInfo] is required to calculate the line number and column number
 CodeLineSelection getCodeLineSelectionFromAnalysisError({
-  required AnalysisError error,
+  required Diagnostic error,
   required LineInfo lineInfo,
 }) {
   return getCodeLineSelectionFromOffsetAndLength(
@@ -97,8 +105,6 @@ String getAstNodeTypeName(AstNode node) {
     final AssertStatement _ => 'AssertStatement',
     final AssignedVariablePattern _ => 'AssignedVariablePattern',
     final AssignmentExpression _ => 'AssignmentExpression',
-    final AugmentedExpression _ => 'AugmentedExpression',
-    final AugmentedInvocation _ => 'AugmentedInvocation',
     final AwaitExpression _ => 'AwaitExpression',
     final BinaryExpression _ => 'BinaryExpression',
     final Block _ => 'Block',
@@ -128,6 +134,7 @@ String getAstNodeTypeName(AstNode node) {
     final DeclaredVariablePattern _ => 'DeclaredVariablePattern',
     final DefaultFormalParameter _ => 'DefaultFormalParameter',
     final DoStatement _ => 'DoStatement',
+    final DotShorthandConstructorInvocation _ => 'DotShorthandConstructorInvocation',
     final DotShorthandInvocation _ => 'DotShorthandInvocation',
     final DotShorthandPropertyAccess _ => 'DotShorthandPropertyAccess',
     final DottedName _ => 'DottedName',

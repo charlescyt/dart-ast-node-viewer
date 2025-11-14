@@ -145,8 +145,6 @@ class AstNodeInfo {
       final AssertStatement node => AstNodeInfo._fromAssertStatement(node),
       final AssignedVariablePattern node => AstNodeInfo._fromAssignedVariablePattern(node),
       final AssignmentExpression node => AstNodeInfo._fromAssignmentExpression(node),
-      final AugmentedExpression node => AstNodeInfo._fromAugmentedExpression(node),
-      final AugmentedInvocation node => AstNodeInfo._fromAugmentedInvocation(node),
       final AwaitExpression node => AstNodeInfo._fromAwaitExpression(node),
       final BinaryExpression node => AstNodeInfo._fromBinaryExpression(node),
       final Block node => AstNodeInfo._fromBlock(node),
@@ -176,6 +174,7 @@ class AstNodeInfo {
       final DeclaredVariablePattern node => AstNodeInfo._fromDeclaredVariablePattern(node),
       final DefaultFormalParameter node => AstNodeInfo._fromDefaultFormalParameter(node),
       final DoStatement node => AstNodeInfo._fromDoStatement(node),
+      final DotShorthandConstructorInvocation node => AstNodeInfo._fromDotShorthandConstructorInvocation(node),
       final DotShorthandInvocation node => AstNodeInfo._fromDotShorthandInvocation(node),
       final DotShorthandPropertyAccess node => AstNodeInfo._fromDotShorthandPropertyAccess(node),
       final DottedName node => AstNodeInfo._fromDottedName(node),
@@ -423,29 +422,6 @@ class AstNodeInfo {
       ],
       tokenEntries: [
         TokenEntry('operator', node.operator),
-      ],
-      propertyEntries: [
-        PropertyEntry('inConstantContext', node.inConstantContext),
-        PropertyEntry('isAssignable', node.isAssignable),
-      ],
-    );
-  }
-
-  factory AstNodeInfo._fromAugmentedExpression(AugmentedExpression node) {
-    return AstNodeInfo(
-      node: node,
-    );
-  }
-
-  factory AstNodeInfo._fromAugmentedInvocation(AugmentedInvocation node) {
-    return AstNodeInfo(
-      node: node,
-      nodeEntries: [
-        SingleNodeEntry('arguments', node.arguments),
-        SingleNodeEntry('typeArguments', node.typeArguments),
-      ],
-      tokenEntries: [
-        TokenEntry('augmentedKeyword', node.augmentedKeyword),
       ],
       propertyEntries: [
         PropertyEntry('inConstantContext', node.inConstantContext),
@@ -921,6 +897,20 @@ class AstNodeInfo {
         TokenEntry('leftParenthesis', node.leftParenthesis),
         TokenEntry('rightParenthesis', node.rightParenthesis),
         TokenEntry('semicolon', node.semicolon),
+      ],
+    );
+  }
+
+  factory AstNodeInfo._fromDotShorthandConstructorInvocation(DotShorthandConstructorInvocation node) {
+    return AstNodeInfo(
+      node: node,
+      nodeEntries: [
+        SingleNodeEntry('typeArguments', node.typeArguments),
+        SingleNodeEntry('argumentList', node.argumentList),
+        SingleNodeEntry('constructorName', node.constructorName),
+      ],
+      tokenEntries: [
+        TokenEntry('period', node.period),
       ],
     );
   }
@@ -1779,7 +1769,7 @@ class AstNodeInfo {
       nodeEntries: [
         SingleNodeEntry('documentationComment', node.documentationComment),
         NodeListEntry('metadata', node.metadata),
-        SingleNodeEntry('name2', node.name2),
+        SingleNodeEntry('name', node.name),
       ],
       tokenEntries: [
         TokenEntry('firstTokenAfterCommentAndMetadata', node.firstTokenAfterCommentAndMetadata),
@@ -2015,7 +2005,7 @@ class AstNodeInfo {
         SingleNodeEntry('typeArguments', node.typeArguments),
       ],
       tokenEntries: [
-        TokenEntry('name2', node.name2),
+        TokenEntry('name', node.name),
         TokenEntry('question', node.question),
       ],
       propertyEntries: [

@@ -121,32 +121,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAugmentedExpression(AugmentedExpression node) {
-    final unParenthesized = _visitNode(node.unParenthesized);
-
-    return TreeNode<AstNode>(
-      node,
-      children: [
-        ?unParenthesized,
-      ],
-    );
-  }
-
-  @override
-  TreeNode<AstNode>? visitAugmentedInvocation(AugmentedInvocation node) {
-    final arguments = _visitNode(node.arguments);
-    final typeArguments = _visitNode(node.typeArguments);
-
-    return TreeNode<AstNode>(
-      node,
-      children: [
-        ?arguments,
-        ?typeArguments,
-      ],
-    );
-  }
-
-  @override
   TreeNode<AstNode>? visitAwaitExpression(AwaitExpression node) {
     final expression = _visitNode(node.expression);
 
@@ -552,6 +526,22 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
       children: [
         ?body,
         ?condition,
+      ],
+    );
+  }
+
+  @override
+  TreeNode<AstNode>? visitDotShorthandConstructorInvocation(DotShorthandConstructorInvocation node) {
+    final constructorName = _visitNode(node.constructorName);
+    final typeArguments = _visitNode(node.typeArguments);
+    final argumentList = _visitNode(node.argumentList);
+
+    return TreeNode<AstNode>(
+      node,
+      children: [
+        ?constructorName,
+        ?typeArguments,
+        ?argumentList,
       ],
     );
   }
@@ -1332,14 +1322,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   TreeNode<AstNode>? visitLibraryDirective(LibraryDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
-    final name2 = _visitNode(node.name2);
+    final name = _visitNode(node.name);
 
     return TreeNode<AstNode>(
       node,
       children: [
         ?documentationComment,
         if (metadata != null) ...metadata,
-        ?name2,
+        ?name,
       ],
     );
   }

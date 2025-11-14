@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart' show ParseStringResult;
 import 'package:analyzer/dart/ast/ast.dart' show AstNode;
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:analyzer/error/error.dart' show AnalysisError;
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   String _content = demoCode;
   late final CodeLineEditingController _controller;
   SyntacticEntity? _selectedSyntacticEntity;
-  AnalysisError? _selectedError;
+  Diagnostic? _selectedError;
   late ParseStringResult _parsedResult;
   late TreeNode<AstNode> _treeNode;
 
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onAnalysisErrorChanged({
-    required AnalysisError? error,
+    required Diagnostic? error,
     required LineInfo lineInfo,
   }) {
     if (_selectedError == error) return;
