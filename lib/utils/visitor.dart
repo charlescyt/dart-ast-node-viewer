@@ -1660,7 +1660,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
-    final configurations = _visitNodeList(node.configurations);
 
     return TreeNode<AstNode>(
       node,
@@ -1668,7 +1667,6 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
         ?documentationComment,
         if (metadata != null) ...metadata,
         ?uri,
-        if (configurations != null) ...configurations,
       ],
     );
   }
