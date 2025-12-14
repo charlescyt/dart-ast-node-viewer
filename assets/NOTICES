@@ -25353,15 +25353,12 @@ path_provider_linux
 path_provider_platform_interface
 path_provider_windows
 plugin_platform_interface
-shared_preferences
 shared_preferences_linux
 shared_preferences_platform_interface
 shared_preferences_web
 shared_preferences_windows
 url_launcher
-url_launcher_linux
 url_launcher_platform_interface
-url_launcher_windows
 xdg_directories
 
 Copyright 2013 The Flutter Authors. All rights reserved.
@@ -26886,11 +26883,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 --------------------------------------------------------------------------------
+shared_preferences
 shared_preferences_android
 shared_preferences_foundation
 url_launcher_android
 url_launcher_ios
+url_launcher_linux
 url_launcher_macos
+url_launcher_windows
 
 Copyright 2013 The Flutter Authors
 
