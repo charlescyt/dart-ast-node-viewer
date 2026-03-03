@@ -10,10 +10,10 @@ part of 'code_theme.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CurrentLightCodeTheme)
-const currentLightCodeThemeProvider = CurrentLightCodeThemeProvider._();
+final currentLightCodeThemeProvider = CurrentLightCodeThemeProvider._();
 
 final class CurrentLightCodeThemeProvider extends $NotifierProvider<CurrentLightCodeTheme, LightCodeTheme> {
-  const CurrentLightCodeThemeProvider._()
+  CurrentLightCodeThemeProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,20 +47,19 @@ abstract class _$CurrentLightCodeTheme extends $Notifier<LightCodeTheme> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<LightCodeTheme, LightCodeTheme>;
     final element =
         ref.element
             as $ClassProviderElement<AnyNotifier<LightCodeTheme, LightCodeTheme>, LightCodeTheme, Object?, Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(CurrentDarkCodeTheme)
-const currentDarkCodeThemeProvider = CurrentDarkCodeThemeProvider._();
+final currentDarkCodeThemeProvider = CurrentDarkCodeThemeProvider._();
 
 final class CurrentDarkCodeThemeProvider extends $NotifierProvider<CurrentDarkCodeTheme, DarkCodeTheme> {
-  const CurrentDarkCodeThemeProvider._()
+  CurrentDarkCodeThemeProvider._()
     : super(
         from: null,
         argument: null,
@@ -94,11 +93,10 @@ abstract class _$CurrentDarkCodeTheme extends $Notifier<DarkCodeTheme> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<DarkCodeTheme, DarkCodeTheme>;
     final element =
         ref.element
             as $ClassProviderElement<AnyNotifier<DarkCodeTheme, DarkCodeTheme>, DarkCodeTheme, Object?, Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

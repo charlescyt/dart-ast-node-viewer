@@ -19,7 +19,7 @@ ParseStringResult parseCode(String content) {
       sdkLanguageVersion: Version(3, 10, 0),
       flags: [
         Feature.dot_shorthands.enableString,
-      ]
+      ],
     ),
   );
 

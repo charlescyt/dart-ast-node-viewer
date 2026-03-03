@@ -2146,7 +2146,6 @@ class AstNodeInfo {
         SingleNodeEntry('documentationComment', node.documentationComment),
         NodeListEntry('metadata', node.metadata),
         SingleNodeEntry('uri', node.uri),
-        NodeListEntry('configurations', node.configurations),
       ],
       tokenEntries: [
         TokenEntry('partKeyword', node.partKeyword),

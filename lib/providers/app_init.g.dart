@@ -10,11 +10,11 @@ part of 'app_init.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(appInit)
-const appInitProvider = AppInitProvider._();
+final appInitProvider = AppInitProvider._();
 
 final class AppInitProvider extends $FunctionalProvider<AsyncValue<void>, void, FutureOr<void>>
     with $FutureModifier<void>, $FutureProvider<void> {
-  const AppInitProvider._()
+  AppInitProvider._()
     : super(
         from: null,
         argument: null,
