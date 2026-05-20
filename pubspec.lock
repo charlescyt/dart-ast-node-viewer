@@ -596,10 +596,11 @@ packages:
   re_editor:
     dependency: "direct main"
     description:
-      name: re_editor
-      sha256: dd4e6ca7350a8fa0cda4e425b82a0c3c010f0f6b3f618c74223e05b8129ab629
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "37fe017"
+      resolved-ref: "37fe01710ec138fe776d19fdb94e31f5f6ff14dd"
+      url: "git@github.com:charlescyt/re-editor.git"
+    source: git
     version: "0.8.0"
   re_highlight:
     dependency: "direct main"

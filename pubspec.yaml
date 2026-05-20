@@ -21,7 +21,10 @@ dependencies:
   meta: ^1.18.0
   package_info_plus: ^10.1.0
   pub_semver: ^2.2.0
-  re_editor: ^0.8.0
+  re_editor:
+    git:
+      ref: 37fe017
+      url: git@github.com:charlescyt/re-editor.git
   re_highlight: ^0.0.3
   riverpod_annotation: ^4.0.2
   shared_preferences: ^2.5.5
