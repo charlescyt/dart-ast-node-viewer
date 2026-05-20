@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:remix_icons_flutter/remixicon_ids.dart';
 
 import '../providers/theme_mode.dart';
 
@@ -13,7 +13,7 @@ class ToggleThemeModeButton extends ConsumerWidget {
 
     return IconButton(
       tooltip: 'Toggle Theme',
-      icon: themeMode == ThemeMode.dark ? const Icon(LucideIcons.moon) : const Icon(LucideIcons.sun),
+      icon: themeMode == ThemeMode.dark ? const Icon(RemixIcon.moonLine) : const Icon(RemixIcon.sunLine),
       onPressed: () => ref.read(currentThemeModeProvider.notifier).toggle(),
     );
   }

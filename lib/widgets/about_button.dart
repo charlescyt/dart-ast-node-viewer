@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:remix_icons_flutter/remixicon_ids.dart';
 
 import '../providers/package_info.dart';
 import '../utils/app.dart';
@@ -13,7 +13,7 @@ class AboutButton extends ConsumerWidget {
     final packageInfo = ref.watch(packageInfoProvider).requireValue;
     return IconButton(
       tooltip: 'About',
-      icon: const Icon(LucideIcons.info),
+      icon: const Icon(RemixIcon.informationLine),
       onPressed: () => showAboutDialog(
         context: context,
         applicationName: App.title,

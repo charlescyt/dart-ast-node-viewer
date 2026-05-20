@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:remix_icons_flutter/remixicon_ids.dart';
 import 'package:url_launcher/link.dart';
 
 import '../utils/app.dart';
@@ -15,8 +15,7 @@ class GithubLinkButton extends StatelessWidget {
       builder: (context, followLink) {
         return IconButton(
           tooltip: 'GitHub',
-          // TODO(charlescyt): LucideIcons no longer has a github icon.
-          icon: const Icon(LucideIcons.link),
+          icon: const Icon(RemixIcon.githubLine),
           onPressed: followLink,
         );
       },
