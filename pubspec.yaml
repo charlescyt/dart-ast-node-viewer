@@ -1,7 +1,7 @@
 name: dart_ast_node_viewer
 description: "A simple Dart AST node viewer."
 publish_to: "none"
-version: 0.4.0+1
+version: 0.5.0+1
 
 environment:
   sdk: ^3.12.0
