@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 
-import '../models/tree_node.dart';
 import '../providers/code_theme.dart';
 import '../utils/app.dart';
 import '../utils/utils.dart';
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage> {
   SyntacticEntity? _selectedSyntacticEntity;
   Diagnostic? _selectedError;
   late ParseStringResult _parsedResult;
-  late TreeNode<AstNode> _treeNode;
 
   AstNode? get _selectedAstNode => switch (_selectedSyntacticEntity) {
     final AstNode node => node,
@@ -50,7 +48,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _controller = CodeLineEditingController.fromText(_content);
     _parsedResult = parseCode(_content);
-    _treeNode = convertParseStringResultToTreeNode(_parsedResult);
   }
 
   @override
@@ -65,7 +62,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _content = value;
       _parsedResult = parseCode(_content);
-      _treeNode = convertParseStringResultToTreeNode(_parsedResult);
       _selectedSyntacticEntity = null;
       _selectedError = null;
     });
@@ -211,7 +207,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildTreeView() {
     return _parsedResult.errors.isEmpty
         ? AstNodeTreeView(
-            roots: [_treeNode],
+            parseStringResult: _parsedResult,
             selected: _selectedAstNode,
             onNodeChanged: (node) {
               _onSyntacticEntityChanged(

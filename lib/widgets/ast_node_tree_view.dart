@@ -1,97 +1,128 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fancy_tree_view/flutter_fancy_tree_view.dart';
+import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
 
-import '../models/tree_node.dart';
 import '../utils/utils.dart';
 import 'app_decorated_box.dart';
 
 class AstNodeTreeView extends StatefulWidget {
   const AstNodeTreeView({
     super.key,
-    required this.roots,
-    this.selected,
+    required this.parseStringResult,
     required this.onNodeChanged,
+    this.selected,
   });
 
-  final Iterable<TreeNode<AstNode>> roots;
-  final AstNode? selected;
+  final ParseStringResult parseStringResult;
   final void Function(AstNode node) onNodeChanged;
+  final AstNode? selected;
 
   @override
-  State<AstNodeTreeView> createState() => _AstNodeTreeViewState();
+  State<AstNodeTreeView> createState() => AstNodeTreeViewState();
 }
 
-class _AstNodeTreeViewState extends State<AstNodeTreeView> {
-  late final TreeController<TreeNode<AstNode>> _treeController;
+class AstNodeTreeViewState extends State<AstNodeTreeView> {
+  late final TreeViewController _treeViewController;
+  late final ScrollController _verticalController;
+  late final ScrollController _horizontalController;
+  late TreeViewNode<AstNode> _root;
 
   @override
   void initState() {
     super.initState();
-    _treeController = TreeController<TreeNode<AstNode>>(
-      roots: widget.roots,
-      childrenProvider: (node) => node.children,
-      defaultExpansionState: true,
-    );
+    _treeViewController = TreeViewController();
+    _verticalController = ScrollController();
+    _horizontalController = ScrollController();
+    _root = convertParseStringResultToTreeNode(widget.parseStringResult);
   }
 
   @override
   void didUpdateWidget(covariant AstNodeTreeView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.roots != oldWidget.roots) {
-      _treeController.roots = widget.roots;
+    if (widget.parseStringResult != oldWidget.parseStringResult) {
+      _root = convertParseStringResultToTreeNode(widget.parseStringResult);
     }
   }
 
   @override
   void dispose() {
-    _treeController.dispose();
+    _verticalController.dispose();
+    _horizontalController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return AppDecoratedBox(
-      child: Material(
-        type: MaterialType.transparency,
-        child: AnimatedTreeView<TreeNode<AstNode>>(
-          treeController: _treeController,
-          padding: const EdgeInsets.all(8.0),
-          nodeBuilder: (context, entry) {
-            final astNode = entry.node.value;
-            return Ink(
-              decoration: BoxDecoration(
-                color: widget.selected == astNode ? theme.colorScheme.primaryContainer : null,
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              ),
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                onTap: () {
-                  widget.onNodeChanged(astNode);
-                },
-                child: TreeIndentation(
-                  entry: entry,
-                  guide: IndentGuide.connectingLines(
-                    connectBranches: false,
-                    indent: 24,
-                    color: theme.dividerColor,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      getAstNodeTypeName(astNode),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: Center(
+        child: AppDecoratedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Scrollbar(
+              controller: _verticalController,
+              thumbVisibility: true,
+              child: Scrollbar(
+                controller: _horizontalController,
+                thumbVisibility: true,
+                child: TreeView<AstNode>(
+                  tree: [_root],
+                  controller: _treeViewController,
+                  indentation: TreeViewIndentationType.none,
+                  verticalDetails: ScrollableDetails.vertical(controller: _verticalController),
+                  horizontalDetails: ScrollableDetails.horizontal(controller: _horizontalController),
+                  treeNodeBuilder: _treeNodeBuilder,
+                  treeRowBuilder: _treeRowBuilder,
                 ),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  Widget _treeNodeBuilder(BuildContext context, TreeViewNode<AstNode> node, AnimationStyle toggleAnimationStyle) {
+    return Row(
+      children: [
+        SizedBox(width: 16.0 * node.depth!),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(getAstNodeTypeName(node.content)),
+        ),
+      ],
+    );
+  }
+
+  TreeRow _treeRowBuilder(TreeViewNode<AstNode> node) {
+    final theme = Theme.of(context);
+    final isSelected = widget.selected == node.content;
+
+    return TreeRow(
+      extent: const FixedTreeRowExtent(24.0),
+      recognizerFactories: _getTapRecognizer(node),
+      backgroundDecoration: isSelected
+          ? TreeRowDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+              color: theme.colorScheme.primaryContainer,
+            )
+          : null,
+    );
+  }
+
+  Map<Type, GestureRecognizerFactory> _getTapRecognizer(
+    TreeViewNode<AstNode> node,
+  ) {
+    return <Type, GestureRecognizerFactory>{
+      TapGestureRecognizer: GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+        TapGestureRecognizer.new,
+        (TapGestureRecognizer t) => t.onTap = () {
+          widget.onNodeChanged(node.content);
+        },
+      ),
+    };
   }
 }

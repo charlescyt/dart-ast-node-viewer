@@ -7,8 +7,8 @@ import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:re_editor/re_editor.dart';
+import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
 
-import '../models/tree_node.dart';
 import 'visitor.dart';
 
 ParseStringResult parseCode(String content) {
@@ -26,16 +26,16 @@ ParseStringResult parseCode(String content) {
   return result;
 }
 
-TreeNode<AstNode> convertParseStringResultToTreeNode(ParseStringResult result) {
+TreeViewNode<AstNode> convertParseStringResultToTreeNode(ParseStringResult result, {bool expanded = true}) {
   final compilationUnit = result.unit;
 
   if (result.errors.isNotEmpty) {
-    return TreeNode(compilationUnit);
+    return TreeViewNode(compilationUnit, expanded: expanded);
   }
 
-  final treeNode = compilationUnit.accept(const AstTreeNodeVisitor());
+  final treeNode = compilationUnit.accept(AstTreeViewNodeVisitor(expanded: expanded));
   if (treeNode == null) {
-    return TreeNode(compilationUnit);
+    return TreeViewNode(compilationUnit, expanded: expanded);
   }
 
   return treeNode;

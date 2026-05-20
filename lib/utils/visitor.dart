@@ -1,26 +1,28 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-
-import '../models/tree_node.dart';
+import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
 
 /// A visitor that builds a tree of [AstNode] nodes.
-class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
-  const AstTreeNodeVisitor();
+class AstTreeViewNodeVisitor extends SimpleAstVisitor<TreeViewNode<AstNode>> {
+  const AstTreeViewNodeVisitor({this.expanded = true});
 
-  TreeNode<AstNode>? _visitNode(AstNode? node) {
+  final bool expanded;
+
+  TreeViewNode<AstNode>? _visitNode(AstNode? node) {
     return node?.accept(this);
   }
 
-  List<TreeNode<AstNode>>? _visitNodeList(NodeList<AstNode>? nodes) {
+  List<TreeViewNode<AstNode>>? _visitNodeList(NodeList<AstNode>? nodes) {
     return nodes?.map((node) => node.accept(this)).nonNulls.toList();
   }
 
   @override
-  TreeNode<AstNode>? visitAdjacentStrings(AdjacentStrings node) {
+  TreeViewNode<AstNode>? visitAdjacentStrings(AdjacentStrings node) {
     final strings = _visitNodeList(node.strings);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?strings,
       ],
@@ -28,14 +30,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAnnotation(Annotation node) {
+  TreeViewNode<AstNode>? visitAnnotation(Annotation node) {
     final name = _visitNode(node.name);
     final typeArguments = _visitNode(node.typeArguments);
     final arguments = _visitNode(node.arguments);
     final constructorName = _visitNode(node.constructorName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?name,
         ?typeArguments,
@@ -46,11 +49,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitArgumentList(ArgumentList node) {
+  TreeViewNode<AstNode>? visitArgumentList(ArgumentList node) {
     final arguments = _visitNodeList(node.arguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?arguments,
       ],
@@ -58,12 +62,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAsExpression(AsExpression node) {
+  TreeViewNode<AstNode>? visitAsExpression(AsExpression node) {
     final expression = _visitNode(node.expression);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ?type,
@@ -72,12 +77,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAssertInitializer(AssertInitializer node) {
+  TreeViewNode<AstNode>? visitAssertInitializer(AssertInitializer node) {
     final condition = _visitNode(node.condition);
     final message = _visitNode(node.message);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?condition,
         ?message,
@@ -86,12 +92,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAssertStatement(AssertStatement node) {
+  TreeViewNode<AstNode>? visitAssertStatement(AssertStatement node) {
     final condition = _visitNode(node.condition);
     final message = _visitNode(node.message);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?condition,
         ?message,
@@ -100,19 +107,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAssignedVariablePattern(AssignedVariablePattern node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitAssignedVariablePattern(AssignedVariablePattern node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitAssignmentExpression(AssignmentExpression node) {
+  TreeViewNode<AstNode>? visitAssignmentExpression(AssignmentExpression node) {
     final leftHandSide = _visitNode(node.leftHandSide);
     final rightHandSide = _visitNode(node.rightHandSide);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?leftHandSide,
         ?rightHandSide,
@@ -121,11 +130,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitAwaitExpression(AwaitExpression node) {
+  TreeViewNode<AstNode>? visitAwaitExpression(AwaitExpression node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -133,12 +143,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitBinaryExpression(BinaryExpression node) {
+  TreeViewNode<AstNode>? visitBinaryExpression(BinaryExpression node) {
     final leftOperand = _visitNode(node.leftOperand);
     final rightOperand = _visitNode(node.rightOperand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?leftOperand,
         ?rightOperand,
@@ -147,11 +158,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitBlock(Block node) {
+  TreeViewNode<AstNode>? visitBlock(Block node) {
     final statements = _visitNodeList(node.statements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?statements,
       ],
@@ -159,11 +171,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitBlockFunctionBody(BlockFunctionBody node) {
+  TreeViewNode<AstNode>? visitBlockFunctionBody(BlockFunctionBody node) {
     final block = _visitNode(node.block);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?block,
       ],
@@ -171,18 +184,20 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitBooleanLiteral(BooleanLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitBooleanLiteral(BooleanLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitBreakStatement(BreakStatement node) {
+  TreeViewNode<AstNode>? visitBreakStatement(BreakStatement node) {
     final label = _visitNode(node.label);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?label,
       ],
@@ -190,13 +205,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCascadeExpression(CascadeExpression node) {
+  TreeViewNode<AstNode>? visitCascadeExpression(CascadeExpression node) {
     final target = _visitNode(node.target);
 
     final cascadeSections = _visitNodeList(node.cascadeSections);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?target,
         ...?cascadeSections,
@@ -205,11 +221,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCaseClause(CaseClause node) {
+  TreeViewNode<AstNode>? visitCaseClause(CaseClause node) {
     final guardedPattern = _visitNode(node.guardedPattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?guardedPattern,
       ],
@@ -217,12 +234,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCastPattern(CastPattern node) {
+  TreeViewNode<AstNode>? visitCastPattern(CastPattern node) {
     final type = _visitNode(node.type);
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
         ?pattern,
@@ -231,14 +249,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCatchClause(CatchClause node) {
+  TreeViewNode<AstNode>? visitCatchClause(CatchClause node) {
     final exceptionType = _visitNode(node.exceptionType);
     final exceptionParameter = _visitNode(node.exceptionParameter);
     final stackTraceParameter = _visitNode(node.stackTraceParameter);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?exceptionType,
         ?exceptionParameter,
@@ -249,14 +268,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCatchClauseParameter(CatchClauseParameter node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitCatchClauseParameter(CatchClauseParameter node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitClassDeclaration(ClassDeclaration node) {
+  TreeViewNode<AstNode>? visitClassDeclaration(ClassDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
@@ -265,8 +285,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final implementsClause = _visitNode(node.implementsClause);
     final members = _visitNodeList(node.members);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -280,7 +301,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitClassTypeAlias(ClassTypeAlias node) {
+  TreeViewNode<AstNode>? visitClassTypeAlias(ClassTypeAlias node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
@@ -288,8 +309,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final withClause = _visitNode(node.withClause);
     final implementsClause = _visitNode(node.implementsClause);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -302,11 +324,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitComment(Comment node) {
+  TreeViewNode<AstNode>? visitComment(Comment node) {
     final references = _visitNodeList(node.references);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?references,
       ],
@@ -314,10 +337,11 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCommentReference(CommentReference node) {
+  TreeViewNode<AstNode>? visitCommentReference(CommentReference node) {
     final expression = _visitNode(node.expression);
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -325,12 +349,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitCompilationUnit(CompilationUnit node) {
+  TreeViewNode<AstNode>? visitCompilationUnit(CompilationUnit node) {
     final directives = _visitNodeList(node.directives);
     final declarations = _visitNodeList(node.declarations);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?directives,
         ...?declarations,
@@ -339,13 +364,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConditionalExpression(ConditionalExpression node) {
+  TreeViewNode<AstNode>? visitConditionalExpression(ConditionalExpression node) {
     final condition = _visitNode(node.condition);
     final thenExpression = _visitNode(node.thenExpression);
     final elseExpression = _visitNode(node.elseExpression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?condition,
         ?thenExpression,
@@ -355,13 +381,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConfiguration(Configuration node) {
+  TreeViewNode<AstNode>? visitConfiguration(Configuration node) {
     final name = _visitNode(node.name);
     final value = _visitNode(node.value);
     final uri = _visitNode(node.uri);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?name,
         ?value,
@@ -371,11 +398,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstantPattern(ConstantPattern node) {
+  TreeViewNode<AstNode>? visitConstantPattern(ConstantPattern node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -383,7 +411,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstructorDeclaration(ConstructorDeclaration node) {
+  TreeViewNode<AstNode>? visitConstructorDeclaration(ConstructorDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
@@ -392,8 +420,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final redirectedConstructor = _visitNode(node.redirectedConstructor);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -407,12 +436,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstructorFieldInitializer(ConstructorFieldInitializer node) {
+  TreeViewNode<AstNode>? visitConstructorFieldInitializer(ConstructorFieldInitializer node) {
     final fieldName = _visitNode(node.fieldName);
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?fieldName,
         ?expression,
@@ -421,12 +451,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstructorName(ConstructorName node) {
+  TreeViewNode<AstNode>? visitConstructorName(ConstructorName node) {
     final type = _visitNode(node.type);
     final name = _visitNode(node.name);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
         ?name,
@@ -435,11 +466,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstructorReference(ConstructorReference node) {
+  TreeViewNode<AstNode>? visitConstructorReference(ConstructorReference node) {
     final constructorName = _visitNode(node.constructorName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?constructorName,
       ],
@@ -447,11 +479,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitConstructorSelector(ConstructorSelector node) {
+  TreeViewNode<AstNode>? visitConstructorSelector(ConstructorSelector node) {
     final name = _visitNode(node.name);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?name,
       ],
@@ -459,12 +492,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitContinueStatement(ContinueStatement node) {
+  TreeViewNode<AstNode>? visitContinueStatement(ContinueStatement node) {
     final target = _visitNode(node.target);
     final label = _visitNode(node.label);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?target,
         ?label,
@@ -473,13 +507,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDeclaredIdentifier(DeclaredIdentifier node) {
+  TreeViewNode<AstNode>? visitDeclaredIdentifier(DeclaredIdentifier node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -489,11 +524,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDeclaredVariablePattern(DeclaredVariablePattern node) {
+  TreeViewNode<AstNode>? visitDeclaredVariablePattern(DeclaredVariablePattern node) {
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
       ],
@@ -501,13 +537,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDefaultFormalParameter(DefaultFormalParameter node) {
+  TreeViewNode<AstNode>? visitDefaultFormalParameter(DefaultFormalParameter node) {
     final metadata = _visitNodeList(node.metadata);
     final parameter = _visitNode(node.parameter);
     final defaultValue = _visitNode(node.defaultValue);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?metadata,
         ?parameter,
@@ -517,12 +554,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDoStatement(DoStatement node) {
+  TreeViewNode<AstNode>? visitDoStatement(DoStatement node) {
     final body = _visitNode(node.body);
     final condition = _visitNode(node.condition);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?body,
         ?condition,
@@ -531,13 +569,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDotShorthandConstructorInvocation(DotShorthandConstructorInvocation node) {
+  TreeViewNode<AstNode>? visitDotShorthandConstructorInvocation(DotShorthandConstructorInvocation node) {
     final constructorName = _visitNode(node.constructorName);
     final typeArguments = _visitNode(node.typeArguments);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?constructorName,
         ?typeArguments,
@@ -547,13 +586,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDotShorthandInvocation(DotShorthandInvocation node) {
+  TreeViewNode<AstNode>? visitDotShorthandInvocation(DotShorthandInvocation node) {
     final memberName = _visitNode(node.memberName);
     final typeArguments = _visitNode(node.typeArguments);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?memberName,
         ?typeArguments,
@@ -563,11 +603,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDotShorthandPropertyAccess(DotShorthandPropertyAccess node) {
+  TreeViewNode<AstNode>? visitDotShorthandPropertyAccess(DotShorthandPropertyAccess node) {
     final propertyName = _visitNode(node.propertyName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?propertyName,
       ],
@@ -575,11 +616,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDottedName(DottedName node) {
+  TreeViewNode<AstNode>? visitDottedName(DottedName node) {
     final components = _visitNodeList(node.components);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?components,
       ],
@@ -587,33 +629,37 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitDoubleLiteral(DoubleLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitDoubleLiteral(DoubleLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitEmptyFunctionBody(EmptyFunctionBody node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitEmptyFunctionBody(EmptyFunctionBody node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitEmptyStatement(EmptyStatement node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitEmptyStatement(EmptyStatement node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitEnumConstantArguments(EnumConstantArguments node) {
+  TreeViewNode<AstNode>? visitEnumConstantArguments(EnumConstantArguments node) {
     final typeArguments = _visitNode(node.typeArguments);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?typeArguments,
         ?argumentList,
@@ -622,13 +668,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitEnumConstantDeclaration(EnumConstantDeclaration node) {
+  TreeViewNode<AstNode>? visitEnumConstantDeclaration(EnumConstantDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final arguments = _visitNode(node.arguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -638,7 +685,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitEnumDeclaration(EnumDeclaration node) {
+  TreeViewNode<AstNode>? visitEnumDeclaration(EnumDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
@@ -647,8 +694,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final members = _visitNodeList(node.members);
     final constants = _visitNodeList(node.constants);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -662,15 +710,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExportDirective(ExportDirective node) {
+  TreeViewNode<AstNode>? visitExportDirective(ExportDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
     final configurations = _visitNodeList(node.configurations);
     final combinators = _visitNodeList(node.combinators);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -682,11 +731,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExpressionFunctionBody(ExpressionFunctionBody node) {
+  TreeViewNode<AstNode>? visitExpressionFunctionBody(ExpressionFunctionBody node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -694,11 +744,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExpressionStatement(ExpressionStatement node) {
+  TreeViewNode<AstNode>? visitExpressionStatement(ExpressionStatement node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -706,11 +757,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExtendsClause(ExtendsClause node) {
+  TreeViewNode<AstNode>? visitExtendsClause(ExtendsClause node) {
     final superclass = _visitNode(node.superclass);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?superclass,
       ],
@@ -718,15 +770,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExtensionDeclaration(ExtensionDeclaration node) {
+  TreeViewNode<AstNode>? visitExtensionDeclaration(ExtensionDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
     final onClause = _visitNode(node.onClause);
     final members = _visitNodeList(node.members);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -738,11 +791,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExtensionOnClause(ExtensionOnClause node) {
+  TreeViewNode<AstNode>? visitExtensionOnClause(ExtensionOnClause node) {
     final extendedType = _visitNode(node.extendedType);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?extendedType,
       ],
@@ -750,13 +804,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExtensionOverride(ExtensionOverride node) {
+  TreeViewNode<AstNode>? visitExtensionOverride(ExtensionOverride node) {
     final argumentList = _visitNode(node.argumentList);
     final importPrefix = _visitNode(node.importPrefix);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?argumentList,
         ?importPrefix,
@@ -766,7 +821,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
+  TreeViewNode<AstNode>? visitExtensionTypeDeclaration(ExtensionTypeDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
@@ -774,8 +829,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final representation = _visitNode(node.representation);
     final members = _visitNodeList(node.members);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -788,13 +844,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFieldDeclaration(FieldDeclaration node) {
+  TreeViewNode<AstNode>? visitFieldDeclaration(FieldDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final fields = _visitNode(node.fields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -804,15 +861,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFieldFormalParameter(FieldFormalParameter node) {
+  TreeViewNode<AstNode>? visitFieldFormalParameter(FieldFormalParameter node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
     final parameters = _visitNode(node.parameters);
     final typeParameters = _visitNode(node.typeParameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -824,12 +882,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForEachPartsWithDeclaration(ForEachPartsWithDeclaration node) {
+  TreeViewNode<AstNode>? visitForEachPartsWithDeclaration(ForEachPartsWithDeclaration node) {
     final loopVariable = _visitNode(node.loopVariable);
     final iterable = _visitNode(node.iterable);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?loopVariable,
         ?iterable,
@@ -838,12 +897,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForEachPartsWithIdentifier(ForEachPartsWithIdentifier node) {
+  TreeViewNode<AstNode>? visitForEachPartsWithIdentifier(ForEachPartsWithIdentifier node) {
     final identifier = _visitNode(node.identifier);
     final iterable = _visitNode(node.iterable);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?identifier,
         ?iterable,
@@ -852,13 +912,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForEachPartsWithPattern(ForEachPartsWithPattern node) {
+  TreeViewNode<AstNode>? visitForEachPartsWithPattern(ForEachPartsWithPattern node) {
     final metadata = _visitNodeList(node.metadata);
     final pattern = _visitNode(node.pattern);
     final iterable = _visitNode(node.iterable);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?metadata,
         ?pattern,
@@ -868,12 +929,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForElement(ForElement node) {
+  TreeViewNode<AstNode>? visitForElement(ForElement node) {
     final forLoopParts = _visitNode(node.forLoopParts);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?forLoopParts,
         ?body,
@@ -882,11 +944,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFormalParameterList(FormalParameterList node) {
+  TreeViewNode<AstNode>? visitFormalParameterList(FormalParameterList node) {
     final parameters = _visitNodeList(node.parameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?parameters,
       ],
@@ -894,13 +957,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForPartsWithDeclarations(ForPartsWithDeclarations node) {
+  TreeViewNode<AstNode>? visitForPartsWithDeclarations(ForPartsWithDeclarations node) {
     final condition = _visitNode(node.condition);
     final variables = _visitNode(node.variables);
     final updaters = _visitNodeList(node.updaters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?condition,
         ?variables,
@@ -910,13 +974,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForPartsWithExpression(ForPartsWithExpression node) {
+  TreeViewNode<AstNode>? visitForPartsWithExpression(ForPartsWithExpression node) {
     final initialization = _visitNode(node.initialization);
     final condition = _visitNode(node.condition);
     final updaters = _visitNodeList(node.updaters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?initialization,
         ?condition,
@@ -926,13 +991,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForPartsWithPattern(ForPartsWithPattern node) {
+  TreeViewNode<AstNode>? visitForPartsWithPattern(ForPartsWithPattern node) {
     final variables = _visitNode(node.variables);
     final condition = _visitNode(node.condition);
     final updaters = _visitNodeList(node.updaters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?variables,
         ?condition,
@@ -942,12 +1008,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitForStatement(ForStatement node) {
+  TreeViewNode<AstNode>? visitForStatement(ForStatement node) {
     final forLoopParts = _visitNode(node.forLoopParts);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?forLoopParts,
         ?body,
@@ -956,14 +1023,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionDeclaration(FunctionDeclaration node) {
+  TreeViewNode<AstNode>? visitFunctionDeclaration(FunctionDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
     final functionExpression = _visitNode(node.functionExpression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -974,11 +1042,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionDeclarationStatement(FunctionDeclarationStatement node) {
+  TreeViewNode<AstNode>? visitFunctionDeclarationStatement(FunctionDeclarationStatement node) {
     final functionDeclaration = _visitNode(node.functionDeclaration);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?functionDeclaration,
       ],
@@ -986,13 +1055,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionExpression(FunctionExpression node) {
+  TreeViewNode<AstNode>? visitFunctionExpression(FunctionExpression node) {
     final parameters = _visitNode(node.parameters);
     final body = _visitNode(node.body);
     final typeParameters = _visitNode(node.typeParameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?parameters,
         ?typeParameters,
@@ -1002,14 +1072,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+  TreeViewNode<AstNode>? visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
     final function = _visitNode(node.function);
     final argumentList = _visitNode(node.argumentList);
 
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?function,
         ?argumentList,
@@ -1019,12 +1090,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionReference(FunctionReference node) {
+  TreeViewNode<AstNode>? visitFunctionReference(FunctionReference node) {
     final function = _visitNode(node.function);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?function,
         ?typeArguments,
@@ -1033,15 +1105,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionTypeAlias(FunctionTypeAlias node) {
+  TreeViewNode<AstNode>? visitFunctionTypeAlias(FunctionTypeAlias node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
     final typeParameters = _visitNode(node.typeParameters);
     final parameters = _visitNode(node.parameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1053,15 +1126,16 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitFunctionTypedFormalParameter(FunctionTypedFormalParameter node) {
+  TreeViewNode<AstNode>? visitFunctionTypedFormalParameter(FunctionTypedFormalParameter node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
     final typeParameters = _visitNode(node.typeParameters);
     final parameters = _visitNode(node.parameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1073,13 +1147,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitGenericFunctionType(GenericFunctionType node) {
+  TreeViewNode<AstNode>? visitGenericFunctionType(GenericFunctionType node) {
     final returnType = _visitNode(node.returnType);
     final typeParameters = _visitNode(node.typeParameters);
     final parameters = _visitNode(node.parameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?returnType,
         ?typeParameters,
@@ -1089,14 +1164,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitGenericTypeAlias(GenericTypeAlias node) {
+  TreeViewNode<AstNode>? visitGenericTypeAlias(GenericTypeAlias node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1107,12 +1183,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitGuardedPattern(GuardedPattern node) {
+  TreeViewNode<AstNode>? visitGuardedPattern(GuardedPattern node) {
     final pattern = _visitNode(node.pattern);
     final whenClause = _visitNode(node.whenClause);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
         ?whenClause,
@@ -1121,11 +1198,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitHideCombinator(HideCombinator node) {
+  TreeViewNode<AstNode>? visitHideCombinator(HideCombinator node) {
     final hiddenNames = _visitNodeList(node.hiddenNames);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?hiddenNames,
       ],
@@ -1133,14 +1211,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitIfElement(IfElement node) {
+  TreeViewNode<AstNode>? visitIfElement(IfElement node) {
     final expression = _visitNode(node.expression);
     final caseClause = _visitNode(node.caseClause);
     final thenElement = _visitNode(node.thenElement);
     final elseElement = _visitNode(node.elseElement);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ?caseClause,
@@ -1151,14 +1230,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitIfStatement(IfStatement node) {
+  TreeViewNode<AstNode>? visitIfStatement(IfStatement node) {
     final expression = _visitNode(node.expression);
     final caseClause = _visitNode(node.caseClause);
     final thenStatement = _visitNode(node.thenStatement);
     final elseStatement = _visitNode(node.elseStatement);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ?caseClause,
@@ -1169,11 +1249,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitImplementsClause(ImplementsClause node) {
+  TreeViewNode<AstNode>? visitImplementsClause(ImplementsClause node) {
     final interfaces = _visitNodeList(node.interfaces);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?interfaces,
       ],
@@ -1181,12 +1262,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitImplicitCallReference(ImplicitCallReference node) {
+  TreeViewNode<AstNode>? visitImplicitCallReference(ImplicitCallReference node) {
     final expression = _visitNode(node.expression);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ?typeArguments,
@@ -1195,7 +1277,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitImportDirective(ImportDirective node) {
+  TreeViewNode<AstNode>? visitImportDirective(ImportDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
@@ -1203,8 +1285,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final prefix = _visitNode(node.prefix);
     final combinators = _visitNodeList(node.combinators);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1217,20 +1300,22 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitImportPrefixReference(ImportPrefixReference node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitImportPrefixReference(ImportPrefixReference node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitIndexExpression(IndexExpression node) {
+  TreeViewNode<AstNode>? visitIndexExpression(IndexExpression node) {
     final realTarget = _visitNode(node.realTarget);
 
     final index = _visitNode(node.index);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?realTarget,
         ?index,
@@ -1239,12 +1324,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitInstanceCreationExpression(InstanceCreationExpression node) {
+  TreeViewNode<AstNode>? visitInstanceCreationExpression(InstanceCreationExpression node) {
     final constructorName = _visitNode(node.constructorName);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?constructorName,
         ?argumentList,
@@ -1253,18 +1339,20 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitIntegerLiteral(IntegerLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitIntegerLiteral(IntegerLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitInterpolationExpression(InterpolationExpression node) {
+  TreeViewNode<AstNode>? visitInterpolationExpression(InterpolationExpression node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -1272,19 +1360,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitInterpolationString(InterpolationString node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitInterpolationString(InterpolationString node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitIsExpression(IsExpression node) {
+  TreeViewNode<AstNode>? visitIsExpression(IsExpression node) {
     final expression = _visitNode(node.expression);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ?type,
@@ -1293,11 +1383,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLabel(Label node) {
+  TreeViewNode<AstNode>? visitLabel(Label node) {
     final label = _visitNode(node.label);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?label,
       ],
@@ -1305,12 +1396,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLabeledStatement(LabeledStatement node) {
+  TreeViewNode<AstNode>? visitLabeledStatement(LabeledStatement node) {
     final statement = _visitNode(node.statement);
     final labels = _visitNodeList(node.labels);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?statement,
         ...?labels,
@@ -1319,13 +1411,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLibraryDirective(LibraryDirective node) {
+  TreeViewNode<AstNode>? visitLibraryDirective(LibraryDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final name = _visitNode(node.name);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1335,11 +1428,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLibraryIdentifier(LibraryIdentifier node) {
+  TreeViewNode<AstNode>? visitLibraryIdentifier(LibraryIdentifier node) {
     final components = _visitNodeList(node.components);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?components,
       ],
@@ -1347,12 +1441,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitListLiteral(ListLiteral node) {
+  TreeViewNode<AstNode>? visitListLiteral(ListLiteral node) {
     final typeArguments = _visitNode(node.typeArguments);
     final elements = _visitNodeList(node.elements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?typeArguments,
         ...?elements,
@@ -1361,12 +1456,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitListPattern(ListPattern node) {
+  TreeViewNode<AstNode>? visitListPattern(ListPattern node) {
     final elements = _visitNodeList(node.elements);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?elements,
         ?typeArguments,
@@ -1375,12 +1471,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLogicalAndPattern(LogicalAndPattern node) {
+  TreeViewNode<AstNode>? visitLogicalAndPattern(LogicalAndPattern node) {
     final leftOperand = _visitNode(node.leftOperand);
     final rightOperand = _visitNode(node.rightOperand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?leftOperand,
         ?rightOperand,
@@ -1389,12 +1486,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitLogicalOrPattern(LogicalOrPattern node) {
+  TreeViewNode<AstNode>? visitLogicalOrPattern(LogicalOrPattern node) {
     final leftOperand = _visitNode(node.leftOperand);
     final rightOperand = _visitNode(node.rightOperand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?leftOperand,
         ?rightOperand,
@@ -1403,12 +1501,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMapLiteralEntry(MapLiteralEntry node) {
+  TreeViewNode<AstNode>? visitMapLiteralEntry(MapLiteralEntry node) {
     final key = _visitNode(node.key);
     final value = _visitNode(node.value);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?key,
         ?value,
@@ -1417,12 +1516,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMapPattern(MapPattern node) {
+  TreeViewNode<AstNode>? visitMapPattern(MapPattern node) {
     final elements = _visitNodeList(node.elements);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?elements,
         ?typeArguments,
@@ -1431,12 +1531,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMapPatternEntry(MapPatternEntry node) {
+  TreeViewNode<AstNode>? visitMapPatternEntry(MapPatternEntry node) {
     final key = _visitNode(node.key);
     final value = _visitNode(node.value);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?key,
         ?value,
@@ -1445,7 +1546,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMethodDeclaration(MethodDeclaration node) {
+  TreeViewNode<AstNode>? visitMethodDeclaration(MethodDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final returnType = _visitNode(node.returnType);
@@ -1453,8 +1554,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final parameters = _visitNode(node.parameters);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1467,7 +1569,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMethodInvocation(MethodInvocation node) {
+  TreeViewNode<AstNode>? visitMethodInvocation(MethodInvocation node) {
     final target = _visitNode(node.target);
     // final realTarget = _visitNode(node.realTarget);
     final methodName = _visitNode(node.methodName);
@@ -1475,8 +1577,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final argumentList = _visitNode(node.argumentList);
     // final function = _visitNode(node.function);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?target,
         // if (realTarget != null) realTarget,
@@ -1489,7 +1592,7 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMixinDeclaration(MixinDeclaration node) {
+  TreeViewNode<AstNode>? visitMixinDeclaration(MixinDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final typeParameters = _visitNode(node.typeParameters);
@@ -1497,8 +1600,9 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
     final implementsClause = _visitNode(node.implementsClause);
     final members = _visitNodeList(node.members);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1511,11 +1615,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitMixinOnClause(MixinOnClause node) {
+  TreeViewNode<AstNode>? visitMixinOnClause(MixinOnClause node) {
     final superclassConstraints = _visitNodeList(node.superclassConstraints);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?superclassConstraints,
       ],
@@ -1523,12 +1628,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNamedExpression(NamedExpression node) {
+  TreeViewNode<AstNode>? visitNamedExpression(NamedExpression node) {
     final name = _visitNode(node.name);
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?name,
         ?expression,
@@ -1537,12 +1643,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNamedType(NamedType node) {
+  TreeViewNode<AstNode>? visitNamedType(NamedType node) {
     final importPrefix = _visitNode(node.importPrefix);
     final typeArguments = _visitNode(node.typeArguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?importPrefix,
         ?typeArguments,
@@ -1551,11 +1658,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNativeClause(NativeClause node) {
+  TreeViewNode<AstNode>? visitNativeClause(NativeClause node) {
     final name = _visitNode(node.name);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?name,
       ],
@@ -1563,11 +1671,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNativeFunctionBody(NativeFunctionBody node) {
+  TreeViewNode<AstNode>? visitNativeFunctionBody(NativeFunctionBody node) {
     final stringLiteral = _visitNode(node.stringLiteral);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?stringLiteral,
       ],
@@ -1575,11 +1684,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNullAssertPattern(NullAssertPattern node) {
+  TreeViewNode<AstNode>? visitNullAssertPattern(NullAssertPattern node) {
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
       ],
@@ -1587,11 +1697,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNullAwareElement(NullAwareElement node) {
+  TreeViewNode<AstNode>? visitNullAwareElement(NullAwareElement node) {
     final value = _visitNode(node.value);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?value,
       ],
@@ -1599,11 +1710,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNullCheckPattern(NullCheckPattern node) {
+  TreeViewNode<AstNode>? visitNullCheckPattern(NullCheckPattern node) {
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
       ],
@@ -1611,19 +1723,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitNullLiteral(NullLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitNullLiteral(NullLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitObjectPattern(ObjectPattern node) {
+  TreeViewNode<AstNode>? visitObjectPattern(ObjectPattern node) {
     final type = _visitNode(node.type);
     final fields = _visitNodeList(node.fields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
         ...?fields,
@@ -1632,11 +1746,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitParenthesizedExpression(ParenthesizedExpression node) {
+  TreeViewNode<AstNode>? visitParenthesizedExpression(ParenthesizedExpression node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -1644,11 +1759,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitParenthesizedPattern(ParenthesizedPattern node) {
+  TreeViewNode<AstNode>? visitParenthesizedPattern(ParenthesizedPattern node) {
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
       ],
@@ -1656,13 +1772,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPartDirective(PartDirective node) {
+  TreeViewNode<AstNode>? visitPartDirective(PartDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1672,14 +1789,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPartOfDirective(PartOfDirective node) {
+  TreeViewNode<AstNode>? visitPartOfDirective(PartOfDirective node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final uri = _visitNode(node.uri);
     final libraryName = _visitNode(node.libraryName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -1690,12 +1808,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPatternAssignment(PatternAssignment node) {
+  TreeViewNode<AstNode>? visitPatternAssignment(PatternAssignment node) {
     final pattern = _visitNode(node.pattern);
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
         ?expression,
@@ -1704,11 +1823,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPatternField(PatternField node) {
+  TreeViewNode<AstNode>? visitPatternField(PatternField node) {
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
       ],
@@ -1716,19 +1836,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPatternFieldName(PatternFieldName node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitPatternFieldName(PatternFieldName node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitPatternVariableDeclaration(PatternVariableDeclaration node) {
+  TreeViewNode<AstNode>? visitPatternVariableDeclaration(PatternVariableDeclaration node) {
     final pattern = _visitNode(node.pattern);
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
         ?expression,
@@ -1737,13 +1859,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPatternVariableDeclarationStatement(
+  TreeViewNode<AstNode>? visitPatternVariableDeclarationStatement(
     PatternVariableDeclarationStatement node,
   ) {
     final declaration = _visitNode(node.declaration);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?declaration,
       ],
@@ -1751,11 +1874,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPostfixExpression(PostfixExpression node) {
+  TreeViewNode<AstNode>? visitPostfixExpression(PostfixExpression node) {
     final operand = _visitNode(node.operand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?operand,
       ],
@@ -1763,12 +1887,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPrefixedIdentifier(PrefixedIdentifier node) {
+  TreeViewNode<AstNode>? visitPrefixedIdentifier(PrefixedIdentifier node) {
     final prefix = _visitNode(node.prefix);
     final identifier = _visitNode(node.identifier);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?prefix,
         ?identifier,
@@ -1777,11 +1902,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPrefixExpression(PrefixExpression node) {
+  TreeViewNode<AstNode>? visitPrefixExpression(PrefixExpression node) {
     final operand = _visitNode(node.operand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?operand,
       ],
@@ -1789,12 +1915,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitPropertyAccess(PropertyAccess node) {
+  TreeViewNode<AstNode>? visitPropertyAccess(PropertyAccess node) {
     final realTarget = _visitNode(node.realTarget);
     final propertyName = _visitNode(node.propertyName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?realTarget,
         ?propertyName,
@@ -1803,11 +1930,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordLiteral(RecordLiteral node) {
+  TreeViewNode<AstNode>? visitRecordLiteral(RecordLiteral node) {
     final fields = _visitNodeList(node.fields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?fields,
       ],
@@ -1815,11 +1943,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordPattern(RecordPattern node) {
+  TreeViewNode<AstNode>? visitRecordPattern(RecordPattern node) {
     final fields = _visitNodeList(node.fields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?fields,
       ],
@@ -1827,12 +1956,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordTypeAnnotation(RecordTypeAnnotation node) {
+  TreeViewNode<AstNode>? visitRecordTypeAnnotation(RecordTypeAnnotation node) {
     final positionalFields = _visitNodeList(node.positionalFields);
     final namedFields = _visitNode(node.namedFields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?positionalFields,
         ?namedFields,
@@ -1841,12 +1971,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordTypeAnnotationNamedField(RecordTypeAnnotationNamedField node) {
+  TreeViewNode<AstNode>? visitRecordTypeAnnotationNamedField(RecordTypeAnnotationNamedField node) {
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?metadata,
         ?type,
@@ -1855,11 +1986,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordTypeAnnotationNamedFields(RecordTypeAnnotationNamedFields node) {
+  TreeViewNode<AstNode>? visitRecordTypeAnnotationNamedFields(RecordTypeAnnotationNamedFields node) {
     final fields = _visitNodeList(node.fields);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?fields,
       ],
@@ -1867,14 +1999,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRecordTypeAnnotationPositionalField(
+  TreeViewNode<AstNode>? visitRecordTypeAnnotationPositionalField(
     RecordTypeAnnotationPositionalField node,
   ) {
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?metadata,
         ?type,
@@ -1883,12 +2016,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRedirectingConstructorInvocation(RedirectingConstructorInvocation node) {
+  TreeViewNode<AstNode>? visitRedirectingConstructorInvocation(RedirectingConstructorInvocation node) {
     final constructorName = _visitNode(node.constructorName);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?constructorName,
         ?argumentList,
@@ -1897,11 +2031,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRelationalPattern(RelationalPattern node) {
+  TreeViewNode<AstNode>? visitRelationalPattern(RelationalPattern node) {
     final operand = _visitNode(node.operand);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?operand,
       ],
@@ -1909,20 +2044,22 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRepresentationConstructorName(RepresentationConstructorName node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitRepresentationConstructorName(RepresentationConstructorName node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitRepresentationDeclaration(RepresentationDeclaration node) {
+  TreeViewNode<AstNode>? visitRepresentationDeclaration(RepresentationDeclaration node) {
     final fieldMetadata = _visitNodeList(node.fieldMetadata);
     final fieldType = _visitNode(node.fieldType);
     final constructorName = _visitNode(node.constructorName);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?fieldMetadata,
         ?fieldType,
@@ -1932,11 +2069,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRestPatternElement(RestPatternElement node) {
+  TreeViewNode<AstNode>? visitRestPatternElement(RestPatternElement node) {
     final pattern = _visitNode(node.pattern);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?pattern,
       ],
@@ -1944,18 +2082,20 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitRethrowExpression(RethrowExpression node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitRethrowExpression(RethrowExpression node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitReturnStatement(ReturnStatement node) {
+  TreeViewNode<AstNode>? visitReturnStatement(ReturnStatement node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -1963,19 +2103,21 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitScriptTag(ScriptTag node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitScriptTag(ScriptTag node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitSetOrMapLiteral(SetOrMapLiteral node) {
+  TreeViewNode<AstNode>? visitSetOrMapLiteral(SetOrMapLiteral node) {
     final typeArguments = _visitNode(node.typeArguments);
     final elements = _visitNodeList(node.elements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?typeArguments,
         ...?elements,
@@ -1984,11 +2126,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitShowCombinator(ShowCombinator node) {
+  TreeViewNode<AstNode>? visitShowCombinator(ShowCombinator node) {
     final shownNames = _visitNodeList(node.shownNames);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?shownNames,
       ],
@@ -1996,13 +2139,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSimpleFormalParameter(SimpleFormalParameter node) {
+  TreeViewNode<AstNode>? visitSimpleFormalParameter(SimpleFormalParameter node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2012,25 +2156,28 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSimpleIdentifier(SimpleIdentifier node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitSimpleIdentifier(SimpleIdentifier node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitSimpleStringLiteral(SimpleStringLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitSimpleStringLiteral(SimpleStringLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitSpreadElement(SpreadElement node) {
+  TreeViewNode<AstNode>? visitSpreadElement(SpreadElement node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -2038,11 +2185,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitStringInterpolation(StringInterpolation node) {
+  TreeViewNode<AstNode>? visitStringInterpolation(StringInterpolation node) {
     final elements = _visitNodeList(node.elements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?elements,
       ],
@@ -2050,12 +2198,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSuperConstructorInvocation(SuperConstructorInvocation node) {
+  TreeViewNode<AstNode>? visitSuperConstructorInvocation(SuperConstructorInvocation node) {
     final constructorName = _visitNode(node.constructorName);
     final argumentList = _visitNode(node.argumentList);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?constructorName,
         ?argumentList,
@@ -2064,22 +2213,24 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSuperExpression(SuperExpression node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitSuperExpression(SuperExpression node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitSuperFormalParameter(SuperFormalParameter node) {
+  TreeViewNode<AstNode>? visitSuperFormalParameter(SuperFormalParameter node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
     final parameters = _visitNode(node.parameters);
     final typeParameters = _visitNode(node.typeParameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2091,13 +2242,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchCase(SwitchCase node) {
+  TreeViewNode<AstNode>? visitSwitchCase(SwitchCase node) {
     final labels = _visitNodeList(node.labels);
     final expression = _visitNode(node.expression);
     final statements = _visitNodeList(node.statements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?labels,
         ?expression,
@@ -2107,12 +2259,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchDefault(SwitchDefault node) {
+  TreeViewNode<AstNode>? visitSwitchDefault(SwitchDefault node) {
     final labels = _visitNodeList(node.labels);
     final statements = _visitNodeList(node.statements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?labels,
         ...?statements,
@@ -2121,12 +2274,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchExpression(SwitchExpression node) {
+  TreeViewNode<AstNode>? visitSwitchExpression(SwitchExpression node) {
     final expression = _visitNode(node.expression);
     final cases = _visitNodeList(node.cases);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ...?cases,
@@ -2135,12 +2289,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchExpressionCase(SwitchExpressionCase node) {
+  TreeViewNode<AstNode>? visitSwitchExpressionCase(SwitchExpressionCase node) {
     final guardedPattern = _visitNode(node.guardedPattern);
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?guardedPattern,
         ?expression,
@@ -2149,13 +2304,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchPatternCase(SwitchPatternCase node) {
+  TreeViewNode<AstNode>? visitSwitchPatternCase(SwitchPatternCase node) {
     final labels = _visitNodeList(node.labels);
     final guardedPattern = _visitNode(node.guardedPattern);
     final statements = _visitNodeList(node.statements);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?labels,
         ?guardedPattern,
@@ -2165,12 +2321,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSwitchStatement(SwitchStatement node) {
+  TreeViewNode<AstNode>? visitSwitchStatement(SwitchStatement node) {
     final expression = _visitNode(node.expression);
     final members = _visitNodeList(node.members);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
         ...?members,
@@ -2179,25 +2336,28 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitSymbolLiteral(SymbolLiteral node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitSymbolLiteral(SymbolLiteral node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitThisExpression(ThisExpression node) {
-    return TreeNode<AstNode>(
+  TreeViewNode<AstNode>? visitThisExpression(ThisExpression node) {
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
     );
   }
 
   @override
-  TreeNode<AstNode>? visitThrowExpression(ThrowExpression node) {
+  TreeViewNode<AstNode>? visitThrowExpression(ThrowExpression node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -2205,13 +2365,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+  TreeViewNode<AstNode>? visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final variables = _visitNode(node.variables);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2221,13 +2382,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTryStatement(TryStatement node) {
+  TreeViewNode<AstNode>? visitTryStatement(TryStatement node) {
     final body = _visitNode(node.body);
     final catchClauses = _visitNodeList(node.catchClauses);
     final finallyBlock = _visitNode(node.finallyBlock);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?body,
         ...?catchClauses,
@@ -2237,11 +2399,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTypeArgumentList(TypeArgumentList node) {
+  TreeViewNode<AstNode>? visitTypeArgumentList(TypeArgumentList node) {
     final arguments = _visitNodeList(node.arguments);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?arguments,
       ],
@@ -2249,11 +2412,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTypeLiteral(TypeLiteral node) {
+  TreeViewNode<AstNode>? visitTypeLiteral(TypeLiteral node) {
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
       ],
@@ -2261,13 +2425,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTypeParameter(TypeParameter node) {
+  TreeViewNode<AstNode>? visitTypeParameter(TypeParameter node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final bound = _visitNode(node.bound);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2277,11 +2442,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitTypeParameterList(TypeParameterList node) {
+  TreeViewNode<AstNode>? visitTypeParameterList(TypeParameterList node) {
     final typeParameters = _visitNodeList(node.typeParameters);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?typeParameters,
       ],
@@ -2289,13 +2455,14 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitVariableDeclaration(VariableDeclaration node) {
+  TreeViewNode<AstNode>? visitVariableDeclaration(VariableDeclaration node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final initializer = _visitNode(node.initializer);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2305,14 +2472,15 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitVariableDeclarationList(VariableDeclarationList node) {
+  TreeViewNode<AstNode>? visitVariableDeclarationList(VariableDeclarationList node) {
     final documentationComment = _visitNode(node.documentationComment);
     final metadata = _visitNodeList(node.metadata);
     final type = _visitNode(node.type);
     final variables = _visitNodeList(node.variables);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?documentationComment,
         ...?metadata,
@@ -2323,11 +2491,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitVariableDeclarationStatement(VariableDeclarationStatement node) {
+  TreeViewNode<AstNode>? visitVariableDeclarationStatement(VariableDeclarationStatement node) {
     final variables = _visitNode(node.variables);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?variables,
       ],
@@ -2335,11 +2504,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitWhenClause(WhenClause node) {
+  TreeViewNode<AstNode>? visitWhenClause(WhenClause node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
@@ -2347,12 +2517,13 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitWhileStatement(WhileStatement node) {
+  TreeViewNode<AstNode>? visitWhileStatement(WhileStatement node) {
     final condition = _visitNode(node.condition);
     final body = _visitNode(node.body);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?condition,
         ?body,
@@ -2361,11 +2532,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitWildcardPattern(WildcardPattern node) {
+  TreeViewNode<AstNode>? visitWildcardPattern(WildcardPattern node) {
     final type = _visitNode(node.type);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?type,
       ],
@@ -2373,11 +2545,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitWithClause(WithClause node) {
+  TreeViewNode<AstNode>? visitWithClause(WithClause node) {
     final mixinTypes = _visitNodeList(node.mixinTypes);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ...?mixinTypes,
       ],
@@ -2385,11 +2558,12 @@ class AstTreeNodeVisitor extends SimpleAstVisitor<TreeNode<AstNode>> {
   }
 
   @override
-  TreeNode<AstNode>? visitYieldStatement(YieldStatement node) {
+  TreeViewNode<AstNode>? visitYieldStatement(YieldStatement node) {
     final expression = _visitNode(node.expression);
 
-    return TreeNode<AstNode>(
+    return TreeViewNode<AstNode>(
       node,
+      expanded: expanded,
       children: [
         ?expression,
       ],
