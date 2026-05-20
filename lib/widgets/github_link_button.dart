@@ -15,7 +15,8 @@ class GithubLinkButton extends StatelessWidget {
       builder: (context, followLink) {
         return IconButton(
           tooltip: 'GitHub',
-          icon: const Icon(LucideIcons.github),
+          // TODO(charlescyt): LucideIcons no longer has a github icon.
+          icon: const Icon(LucideIcons.link),
           onPressed: followLink,
         );
       },

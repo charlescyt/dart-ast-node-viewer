@@ -1,5 +1,9 @@
 include: package:choco_lints/app.yaml
 
+analyzer:
+  errors:
+    todo: ignore
+
 formatter:
   trailing_commas: preserve
   page_width: 120
