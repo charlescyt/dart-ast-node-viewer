@@ -583,7 +583,7 @@ packages:
       path: "."
       ref: "37fe017"
       resolved-ref: "37fe01710ec138fe776d19fdb94e31f5f6ff14dd"
-      url: "git@github.com:charlescyt/re-editor.git"
+      url: "https://github.com/charlescyt/re-editor.git"
     source: git
     version: "0.8.0"
   re_highlight:

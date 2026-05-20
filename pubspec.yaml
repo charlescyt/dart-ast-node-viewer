@@ -22,7 +22,7 @@ dependencies:
   re_editor:
     git:
       ref: 37fe017
-      url: git@github.com:charlescyt/re-editor.git
+      url: https://github.com/charlescyt/re-editor.git
   re_highlight: ^0.0.3
   remix_icons_flutter: ^4.9.2
   riverpod_annotation: ^4.0.2
