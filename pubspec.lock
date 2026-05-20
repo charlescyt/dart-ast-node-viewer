@@ -297,6 +297,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "09dcde8ab90ffae1a7d65ff2ef96fc62a17ad9d0ce7c127b317ded676b0d5935"
+      url: "https://pub.dev"
+    source: hosted
+    version: "11.0.0"
   freezed_annotation:
     dependency: transitive
     description:
@@ -602,14 +610,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-  remix_icons_flutter:
-    dependency: "direct main"
-    description:
-      name: remix_icons_flutter
-      sha256: "6cb34effffc0cac32285637ebbd3b67e672ad532da85251d24966b3d70354020"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.9.2"
   riverpod:
     dependency: transitive
     description:

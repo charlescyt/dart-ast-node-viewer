@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remix_icons_flutter/remixicon_ids.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/link.dart';
 
 import '../utils/app.dart';
@@ -15,7 +15,7 @@ class GithubLinkButton extends StatelessWidget {
       builder: (context, followLink) {
         return IconButton(
           tooltip: 'GitHub',
-          icon: const Icon(RemixIcon.githubLine),
+          icon: const FaIcon(FontAwesomeIcons.github),
           onPressed: followLink,
         );
       },

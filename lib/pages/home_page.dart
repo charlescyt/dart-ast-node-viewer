@@ -5,8 +5,8 @@ import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/source/line_info.dart' show LineInfo;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:re_editor/re_editor.dart';
-import 'package:remix_icons_flutter/remixicon_ids.dart';
 
 import '../providers/code_theme.dart';
 import '../utils/app.dart';
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
           const ToggleThemeModeButton(),
           IconButton(
             tooltip: 'Ast Nodes',
-            icon: const Icon(RemixIcon.menuLine),
+            icon: const FaIcon(FontAwesomeIcons.bars),
             onPressed: _onAstNodesButtonPressed,
           ),
         ],

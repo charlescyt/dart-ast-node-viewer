@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.3.1
+  font_awesome_flutter: ^11.0.0
   meta: ^1.18.0
   package_info_plus: ^10.1.0
   pub_semver: ^2.2.0
@@ -24,7 +25,6 @@ dependencies:
       ref: 37fe017
       url: https://github.com/charlescyt/re-editor.git
   re_highlight: ^0.0.3
-  remix_icons_flutter: ^4.9.2
   riverpod_annotation: ^4.0.2
   shared_preferences: ^2.5.5
   two_dimensional_scrollables: ^0.5.2

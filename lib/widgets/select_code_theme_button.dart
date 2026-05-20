@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:remix_icons_flutter/remixicon_ids.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../providers/code_theme.dart';
 import 'select_code_theme_dialog.dart';
@@ -12,7 +12,7 @@ class SelectCodeThemeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       tooltip: 'Code Theme',
-      icon: const Icon(RemixIcon.paletteLine),
+      icon: const FaIcon(FontAwesomeIcons.palette),
       onPressed: () async {
         final lightTheme = ref.read(currentLightCodeThemeProvider);
         final darkTheme = ref.read(currentDarkCodeThemeProvider);
