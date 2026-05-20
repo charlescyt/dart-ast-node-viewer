@@ -34,7 +34,7 @@ dev_dependencies:
   build_runner: ^2.15.0
   choco_lints:
     git:
-      ref: v1.9.1
+      ref: v1.10.0
       url: https://github.com/charlescyt/choco_lints.git
   flutter_test:
     sdk: flutter

@@ -133,11 +133,11 @@ packages:
     dependency: "direct dev"
     description:
       path: "."
-      ref: "v1.9.1"
-      resolved-ref: "8a5214ebec2da4ca212d9098fcd087b9a9d3d8ae"
+      ref: "v1.10.0"
+      resolved-ref: "5ec95680e0d36fa66f587f6950e08f6580bd8ba1"
       url: "https://github.com/charlescyt/choco_lints.git"
     source: git
-    version: "1.9.1"
+    version: "1.10.0"
   cli_config:
     dependency: transitive
     description:
