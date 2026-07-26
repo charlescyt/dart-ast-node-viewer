@@ -24,7 +24,7 @@ dependencies:
   re_highlight: ^0.0.3
   riverpod_annotation: ^4.0.2
   shared_preferences: ^2.5.5
-  two_dimensional_scrollables: ^0.5.2
+  two_dimensional_scrollables: ^0.5.3
   url_launcher: ^6.3.2
 
 dev_dependencies:
