@@ -19,7 +19,7 @@ dependencies:
   font_awesome_flutter: ^11.0.0
   meta: ^1.18.0
   package_info_plus: ^10.2.1
-  pub_semver: ^2.2.0
+  pub_semver: ^2.2.1
   re_editor: ^0.10.0
   re_highlight: ^0.0.3
   riverpod_annotation: ^4.0.2
